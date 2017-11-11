@@ -1,0 +1,44 @@
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="matabPUN">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <jta-data-source>java:/MatabDBDS</jta-data-source>
+
+        <class>dal.entities.EmployeeEntity</class>
+        <class>dal.entities.GiftEntity</class>
+        <class>dal.entities.DismissEntity</class>
+        <class>dal.entities.ContractEntity</class>
+        <class>dal.entities.PresentTimeEntity</class>
+        <class>dal.entities.PaymentEntity</class>
+        <class>dal.entities.TransactionEntity</class>
+        <class>dal.entities.PatientEntity</class>
+        <class>dal.entities.FileEntity</class>
+        <class>dal.entities.CostEntity</class>
+        <class>dal.entities.PartialStorageEntity</class>
+        <class>dal.entities.PrescriptionEntity</class>
+        <class>dal.entities.PurchaseSourceEntity</class>
+        <class>dal.entities.MainStorageEntity</class>
+        <class>dal.entities.VisitEntity</class>
+        <class>dal.entities.DrugEntity</class>
+        <class>dal.entities.DrugDeliveryEntity</class>
+        <class>dal.entities.PrescriptionDrugEntity</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <!--<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> &lt;!&ndash; DB Driver &ndash;&gt;-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/test" /> &lt;!&ndash; BD Mane &ndash;&gt;-->
+            <!--<property name="javax.persistence.jdbc.user" value="postgres" /> &lt;!&ndash; DB User &ndash;&gt;-->
+            <!--<property name="javax.persistence.jdbc.password" value="" /> &lt;!&ndash; DB Password &ndash;&gt;-->
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create / create-drop / update -->
+
+            <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
+            <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
+        </properties>
+
+    </persistence-unit>
+</persistence>

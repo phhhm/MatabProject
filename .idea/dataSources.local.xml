@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="matab@localhost" uuid="279e3b28-29e3-4e49-84bc-267ae9a720ce">
+      <database-info product="PostgreSQL" version="9.4.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.1.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <introspection-schemas>matab:public</introspection-schemas>
+      <resolve-scope>matab:postgres,public</resolve-scope>
+      <unqualified-resolve-schemas>matab:postgres,public</unqualified-resolve-schemas>
+    </data-source>
+  </component>
+</project>
