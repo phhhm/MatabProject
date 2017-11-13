@@ -29,7 +29,7 @@ public class CostBiz {
     private MainConverter converter;
 
     public List<CostDto> getAll() throws SQLException, ValidationException {
-        List<CostDto> costDtoList = converter.getList(costDaoImp.getAll(), CostDto.class);
+            List<CostDto> costDtoList = converter.getList(costDaoImp.getAll(), CostDto.class);
         List<String> validationResult = costValidator.listDtoValidation(costDtoList);
         if (validationResult.size() == 0)
             return costDtoList;
@@ -47,9 +47,9 @@ public class CostBiz {
     }
 
     public void add(CostDto costDto) throws  SQLException, ValidationException {
-        Long drugId = costDto.getDrugId();
         List<String> validationResult = costValidator.dtoValidation(costDto);
         if (validationResult.size() == 0) {
+            Long drugId = costDto.getDrugId();
             costDto.setId(null);
             CostEntity costEntity = (CostEntity) converter.getObject(costDto, CostEntity.class);
             costEntity.setDrugEntity(drugDaoImp.getById(drugId));

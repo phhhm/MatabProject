@@ -14,11 +14,14 @@ public class ContractValidator {
         if (contractDto==null)
             result.add(ValidationMessages.objectEmpty);
         if (contractDto!=null && (contractDto.getEndContractTime()== null
-                || contractDto.getMablagh() == null
-                || contractDto.getEmployeeId() == null
-                || contractDto.getStartContractTime() == null
-                || contractDto.getStartContractTime().trim().equals("")
                 || contractDto.getEndContractTime().trim().equals("")))
+            result.add(ValidationMessages.endContractEmpty);
+        if(contractDto != null && contractDto.getMablagh() == null)
+            result.add(ValidationMessages.mablaghEmpty);
+        if(contractDto != null && contractDto.getEmployeeId() == null)
+            result.add(ValidationMessages.employeeEmpty);
+        if (contractDto != null && (contractDto.getStartContractTime() == null
+                || contractDto.getStartContractTime().trim().equals("")))
             result.add(ValidationMessages.fieldEmpty);
         return result;
     }

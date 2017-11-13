@@ -14,11 +14,13 @@ public class DismissValidator {
         if (dismissDto==null)
             result.add(ValidationMessages.objectEmpty);
         if (dismissDto!=null && (dismissDto.getFromDate()== null
-                || dismissDto.getUntilDate() == null
-                || dismissDto.getEmployeeId() == null
-                || dismissDto.getUntilDate().trim().equals("")
                 || dismissDto.getFromDate().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+                result.add(ValidationMessages.fromDateEmpty);
+        if (dismissDto != null && (dismissDto.getUntilDate() == null
+                || dismissDto.getUntilDate().trim().equals("")))
+            result.add(ValidationMessages.untilDateEmpty);
+        if (dismissDto != null && dismissDto.getEmployeeId() == null)
+            result.add(ValidationMessages.employeeIdEmpty);
         return result;
     }
 

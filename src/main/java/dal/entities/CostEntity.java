@@ -6,21 +6,21 @@ package dal.entities;
 @Table(name = "cost_entity")
 public class CostEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(nullable = false)
+        private Long id;
 
-    @Column(nullable = false)
-    private Float sell;
+        @Column(nullable = false)
+        private Float sell;
 
-    @Column(nullable = false)
-    private Float buy;
+        @Column(nullable = false)
+        private Float buy;
 
-    @Column(nullable = false)
-    private String date;
+        @Column(nullable = false)
+        private String date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drug_id", nullable = false)
     private DrugEntity drugEntity;
 

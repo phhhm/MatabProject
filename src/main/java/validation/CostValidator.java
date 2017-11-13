@@ -13,12 +13,14 @@ public class CostValidator {
         List<String> result = new ArrayList<String>();
         if (costDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (costDto!=null && (costDto.getBuy()== null
-                || costDto.getSell() == null
-                || costDto.getDate() == null
-                || costDto.getDrugId() == null
-                || costDto.getDate().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (costDto!=null && costDto.getBuy()== null)
+            result.add(ValidationMessages.buyEmpty);
+        if(costDto != null && costDto.getSell() == null)
+            result.add(ValidationMessages.sellEmpty);
+        if(costDto != null && (costDto.getDate() == null || costDto.getDate().trim().equals("")))
+            result.add(ValidationMessages.dateEmpty);
+        if(costDto != null && costDto.getDrugId() == null)
+            result.add(ValidationMessages.drugIdEmpty);
         return result;
     }
 
