@@ -13,18 +13,18 @@ public class FileValidator {
         List<String> result = new ArrayList<String>();
         if (fileDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (fileDto!=null && (fileDto.getConsumableDose()== null
-                || fileDto.getConsumableDrugs() == null
-                || fileDto.getFileCode() == null
-                || fileDto.getPrescription() == null
-                || fileDto.getDescription() == null
-                || fileDto.getPatientId() == null
-                || fileDto.getTransactionId() == null
-                || fileDto.getDescription().trim().equals("")
-                || fileDto.getPrescription().trim().equals("")
-                || fileDto.getConsumableDrugs().trim().equals("")
-                || fileDto.getConsumableDose().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (fileDto!=null && (fileDto.getConsumableDrugs()== null || fileDto.getConsumableDrugs().trim().equals("")))
+            result.add(ValidationMessages.consumableDragEmpty);
+        if (fileDto != null && fileDto.getFileCode() == null)
+            result.add(ValidationMessages.fileCodeEmpty);
+        if(fileDto != null && (fileDto.getDescription() == null || fileDto.getDescription().trim().equals("")))
+            result.add(ValidationMessages.descriptionEmpty);
+        if (fileDto != null && fileDto.getStartDate() == null)
+            result.add(ValidationMessages.startDateEmpty);
+        if (fileDto != null && fileDto.getPatientId() == null)
+            result.add(ValidationMessages.patientIdEmpty);
+        if (fileDto != null && fileDto.getTransactionId() == null)
+            result.add(ValidationMessages.transactionIdEmpty);
         return result;
     }
 

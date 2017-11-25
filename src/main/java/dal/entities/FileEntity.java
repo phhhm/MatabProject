@@ -1,6 +1,11 @@
 package dal.entities;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -13,21 +18,31 @@ public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Max(1)
     private Long fileCode;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 20)
     private String consumableDrugs;
 
     @Column(nullable = true)
-    private String endDate;
+    @Min(10000)
+    private Long endDate;
 
     @Column(nullable = false)
-    private String startDate;
+    @NotNull
+    @Min(10000)
+    private Long startDate;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 5, integer = 50)
     private String description;
 
     @OneToMany(mappedBy = "fileEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -65,19 +80,19 @@ public class FileEntity {
         this.consumableDrugs = consumableDrugs;
     }
 
-    public String getEndDate() {
+    public Long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Long endDate) {
         this.endDate = endDate;
     }
 
-    public String getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 

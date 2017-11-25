@@ -13,13 +13,12 @@ public class DrugValidator {
         List<String> result = new ArrayList<String>();
         if (drugDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (drugDto!=null && (drugDto.getName()== null
-                || drugDto.getTotalInventory() == null
-                || drugDto.getUnitType() == null
-                || drugDto.getUnitType().trim().equals("")
-                || drugDto.getTotalInventory().trim().equals("")
-                || drugDto.getName().trim().equals("")))
+        if (drugDto!=null && (drugDto.getName()== null || drugDto.getName().trim().equals("")))
             result.add(ValidationMessages.fieldEmpty);
+        if (drugDto != null && (drugDto.getTotalInventory() == null|| drugDto.getTotalInventory().trim().equals("")))
+            result.add(ValidationMessages.totalInventoryEmpty);
+        if (drugDto != null && (drugDto.getUnitType() == null || drugDto.getUnitType().trim().equals("")))
+            result.add(ValidationMessages.unitTypeEmpty);
         return result;
     }
 

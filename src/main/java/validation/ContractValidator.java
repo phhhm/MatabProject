@@ -19,10 +19,10 @@ public class ContractValidator {
         if(contractDto != null && contractDto.getMablagh() == null)
             result.add(ValidationMessages.mablaghEmpty);
         if(contractDto != null && contractDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeEmpty);
+            result.add(ValidationMessages.employeeIdEmpty);
         if (contractDto != null && (contractDto.getStartContractTime() == null
                 || contractDto.getStartContractTime().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+            result.add(ValidationMessages.startContractEmpty);
         return result;
     }
 

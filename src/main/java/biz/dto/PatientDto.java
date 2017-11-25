@@ -13,6 +13,10 @@ public class PatientDto {
     private String homeAddress;
     private Long phoneNumber;
     private String sex;
+    private String imageUrl;
+    private String certificateImageUrl;
+    private String nationalCardImageUrl;
+    private Long startDate;
 
     public Long getId() {
         return id;
@@ -84,5 +88,37 @@ public class PatientDto {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCertificateImageUrl() {
+        return certificateImageUrl;
+    }
+
+    public void setCertificateImageUrl(String certificateImageUrl) {
+        this.certificateImageUrl = certificateImageUrl;
+    }
+
+    public String getNationalCardImageUrl() {
+        return nationalCardImageUrl;
+    }
+
+    public void setNationalCardImageUrl(String nationalCardImageUrl) {
+        this.nationalCardImageUrl = nationalCardImageUrl;
+    }
+
+    public Long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Long startDate) {
+        this.startDate = startDate;
     }
 }

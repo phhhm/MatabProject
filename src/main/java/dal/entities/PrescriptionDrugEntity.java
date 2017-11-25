@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "prescription_drug_entity")
@@ -9,10 +11,13 @@ public class PrescriptionDrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
-    private String consumableDose;
+    @NotNull
+    @Min(1)
+    private Integer consumableDose;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drug_id", nullable = false)
@@ -30,11 +35,11 @@ public class PrescriptionDrugEntity {
         this.id = id;
     }
 
-    public String getConsumableDose() {
+    public Integer getConsumableDose() {
         return consumableDose;
     }
 
-    public void setConsumableDose(String consumableDose) {
+    public void setConsumableDose(Integer consumableDose) {
         this.consumableDose = consumableDose;
     }
 

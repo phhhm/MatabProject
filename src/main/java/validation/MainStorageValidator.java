@@ -14,10 +14,12 @@ public class MainStorageValidator {
         List<String> result = new ArrayList<String>();
         if (mainStorageDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (mainStorageDto!=null && (mainStorageDto.getDrugAmountInUnit() == null
-        || mainStorageDto.getDrugDeliveryId() == null
-        || mainStorageDto.getDrugId() == null))
-            result.add(ValidationMessages.fieldEmpty);
+        if (mainStorageDto!=null && mainStorageDto.getDrugAmountInUnit() == null)
+            result.add(ValidationMessages.drugAmountInUnitEmpty);
+        if (mainStorageDto != null && mainStorageDto.getDrugDeliveryId() == null)
+            result.add(ValidationMessages.drugDeliveryIdEmpty);
+        if (mainStorageDto != null && mainStorageDto.getDrugId() == null)
+            result.add(ValidationMessages.drugIdEmpty);
         return result;
     }
 

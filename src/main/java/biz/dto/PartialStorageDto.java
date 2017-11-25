@@ -2,7 +2,7 @@ package biz.dto;
 
 public class PartialStorageDto {
     private Long id;
-    private Float drugAmountInUnit;
+    private Integer drugAmountInUnit;
     private Long drugDeliveryId;
     private Long drugId;
 
@@ -30,11 +30,11 @@ public class PartialStorageDto {
         this.id = id;
     }
 
-    public Float getDrugAmountInUnit() {
+    public Integer getDrugAmountInUnit() {
         return drugAmountInUnit;
     }
 
-    public void setDrugAmountInUnit(Float drugAmountInUnit) {
+    public void setDrugAmountInUnit(Integer drugAmountInUnit) {
         this.drugAmountInUnit = drugAmountInUnit;
     }
 }

@@ -7,8 +7,8 @@ public class FileDto {
     private Long id;
     private Long fileCode;
     private String consumableDrugs;
-    private String prescription;
-    private String consumableDose;
+    private Long endDate;
+    private Long startDate;
     private String description;
     private Long patientId;
     private Long transactionId;
@@ -45,28 +45,28 @@ public class FileDto {
         this.fileCode = fileCode;
     }
 
-    public String getConsumableDrugs() {
+    public String  getConsumableDrugs() {
         return consumableDrugs;
+    }
+
+    public Long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Long startDate) {
+        this.startDate = startDate;
     }
 
     public void setConsumableDrugs(String consumableDrugs) {
         this.consumableDrugs = consumableDrugs;
     }
 
-    public String getPrescription() {
-        return prescription;
+    public Long getEndDate() {
+        return endDate;
     }
 
-    public void setPrescription(String prescription) {
-        this.prescription = prescription;
-    }
-
-    public String getConsumableDose() {
-        return consumableDose;
-    }
-
-    public void setConsumableDose(String consumableDose) {
-        this.consumableDose = consumableDose;
+    public void setEndDate(Long endDate) {
+        this.endDate = endDate;
     }
 
     public String getDescription() {

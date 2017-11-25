@@ -13,11 +13,12 @@ public class PrescriptionDrugValidator {
         List<String> result = new ArrayList<String>();
         if (prescriptionDrugDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (prescriptionDrugDto!=null && (prescriptionDrugDto.getConsumableDose()== null
-                || prescriptionDrugDto.getDrugId() == null
-                || prescriptionDrugDto.getPrescriptionId() == null
-                || prescriptionDrugDto.getConsumableDose().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (prescriptionDrugDto!=null && (prescriptionDrugDto.getConsumableDose()== null || prescriptionDrugDto.getConsumableDose().trim().equals("")))
+            result.add(ValidationMessages.consumableDoseEmpty);
+        if (prescriptionDrugDto != null && prescriptionDrugDto.getDrugId() == null)
+            result.add(ValidationMessages.drugIdEmpty);
+        if (prescriptionDrugDto != null && prescriptionDrugDto.getPrescriptionId() == null)
+            result.add(ValidationMessages.prescriptionIdEmpty);
         return result;
     }
 

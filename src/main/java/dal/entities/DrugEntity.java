@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,15 +12,20 @@ public class DrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(integer = 15, fraction = 3)
     private String name;
 
     @Column(nullable = false)
+    @NotNull
     private String unitType;
 
     @Column(nullable = false)
+    @NotNull
     private String totalInventory;
 
     @OneToMany(mappedBy = "drugEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

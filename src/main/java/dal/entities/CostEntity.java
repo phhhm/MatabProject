@@ -1,6 +1,8 @@
 package dal.entities;
 
         import javax.persistence.*;
+        import javax.validation.constraints.Min;
+        import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cost_entity")
@@ -9,16 +11,23 @@ public class CostEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(nullable = false)
+        @NotNull
         private Long id;
 
         @Column(nullable = false)
-        private Float sell;
+        @NotNull
+        @Min(100)
+        private Long sell;
 
         @Column(nullable = false)
-        private Float buy;
+        @NotNull
+        @Min(100)
+        private Long buy;
 
         @Column(nullable = false)
-        private String date;
+        @NotNull
+        @Min(100000)
+        private Long date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drug_id", nullable = false)
@@ -32,27 +41,27 @@ public class CostEntity {
         this.id = id;
     }
 
-    public Float getSell() {
+    public Long getSell() {
         return sell;
     }
 
-    public void setSell(Float sell) {
+    public void setSell(Long sell) {
         this.sell = sell;
     }
 
-    public Float getBuy() {
+    public Long getBuy() {
         return buy;
     }
 
-    public void setBuy(Float buy) {
+    public void setBuy(Long buy) {
         this.buy = buy;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 

@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "main_storage_entity")
@@ -9,10 +11,12 @@ public class MainStorageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
-    private float drugAmountInUnit;
+    @NotNull
+    private Integer drugAmountInUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drug_delivery_id", nullable = false)
@@ -30,11 +34,11 @@ public class MainStorageEntity {
         this.id = id;
     }
 
-    public float getDrugAmountInUnit() {
+    public Integer getDrugAmountInUnit() {
         return drugAmountInUnit;
     }
 
-    public void setDrugAmountInUnit(float drugAmountInUnit) {
+    public void setDrugAmountInUnit(Integer drugAmountInUnit) {
         this.drugAmountInUnit = drugAmountInUnit;
     }
 

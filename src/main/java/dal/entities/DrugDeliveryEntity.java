@@ -1,6 +1,9 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,18 +13,26 @@ public class DrugDeliveryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 10)
     private String sourceType;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(integer = 2 , fraction = 1)
+    @Max(20)
     private Integer useDuration;
 
     @Column(nullable = false)
-    private String deliveryDate;
+    @NotNull
+    private Long deliveryDate;
 
     @Column(nullable = false)
+    @NotNull
     private Long sourceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -62,11 +73,11 @@ public class DrugDeliveryEntity {
         this.useDuration = useDuration;
     }
 
-    public String getDeliveryDate() {
+    public Long getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Long deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

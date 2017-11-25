@@ -1,6 +1,11 @@
 package dal.entities;
 
+import org.jboss.resteasy.spi.touri.URITemplate;
+
+import javax.enterprise.inject.Default;
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import javax.ws.rs.DefaultValue;
 import java.util.List;
 
 /**
@@ -13,42 +18,63 @@ public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 15)
     private String firstName;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 20)
     private String lastName;
 
     @Column
+    @NotNull
     private Long uid;
 
     @Column
+    @NotNull
     private Long ucode;
 
     @Column(nullable = false)
+    @NotNull
+    @Min(7)
+    @Max(20)
     private Long phoneNumber;
 
     @Column(nullable = false)
+    @NotNull
     private Long employeeCode;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 10, integer = 40)
     private String homeAddress;
 
     @Column
+    @NotNull
+    @Digits(fraction = 3, integer = 20)
     private String degree;
 
     @Column
+    @NotNull
+    @Digits(fraction = 5, integer = 30)
     private String ability;
 
     @Column(nullable = false)
+    @NotNull
     private String employeeType;
 
     @Column(nullable = false)
+    @NotNull
     private Integer remainMorekhasi;
 
     @Column
+    @NotNull
+    @Pattern(regexp = "[a-z]+www+.+[a-z]+.+", message = "invalid url")
     private String imageUrl;
 
     @OneToMany( mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

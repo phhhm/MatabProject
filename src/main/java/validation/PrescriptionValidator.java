@@ -14,8 +14,8 @@ public class PrescriptionValidator {
         List<String> result = new ArrayList<String>();
         if (prescriptionDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (prescriptionDto!=null && (prescriptionDto.getVisitId()== null))
-            result.add(ValidationMessages.fieldEmpty);
+        if (prescriptionDto!=null && prescriptionDto.getVisitId()== null)
+            result.add(ValidationMessages.visitIdEmpty);
         return result;
     }
 

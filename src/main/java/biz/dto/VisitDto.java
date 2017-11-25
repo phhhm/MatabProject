@@ -3,8 +3,8 @@ package biz.dto;
 public class VisitDto {
 
     private Long id;
-    private String visitDate;
-    private String nextVisitDate;
+    private Long visitDate;
+    private Long nextVisitDate;
     private Long employeeId;
     private Long fileId;
 
@@ -32,19 +32,19 @@ public class VisitDto {
         this.id = id;
     }
 
-    public String getVisitDate() {
+    public Long getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(String visitDate) {
+    public void setVisitDate(Long visitDate) {
         this.visitDate = visitDate;
     }
 
-    public String getNextVisitDate() {
+    public Long getNextVisitDate() {
         return nextVisitDate;
     }
 
-    public void setNextVisitDate(String nextVisitDate) {
+    public void setNextVisitDate(Long nextVisitDate) {
         this.nextVisitDate = nextVisitDate;
     }
 }

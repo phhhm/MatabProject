@@ -1,5 +1,8 @@
 package dal.entities;
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by parham on 27/10/2017.
@@ -11,15 +14,22 @@ public class PresentTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
-    private String startTime;
+    @NotNull
+    @Min(100000)
+    private Long startTime;
 
     @Column(nullable = false)
-    private String endTime;
+    @NotNull
+    @Min(100000)
+    private Long endTime;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 4, integer = 8)
     private String weekDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,19 +45,19 @@ public class PresentTimeEntity {
         this.id = id;
     }
 
-    public String getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 

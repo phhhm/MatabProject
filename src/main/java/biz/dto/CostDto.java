@@ -2,9 +2,9 @@ package biz.dto;
 
 public class CostDto {
     private Long id;
-    private Float sell;
-    private Float buy;
-    private String date;
+    private Long sell;
+    private Long buy;
+    private Long date;
     private Long drugId;
 
     public Long getDrugId() {
@@ -23,27 +23,27 @@ public class CostDto {
         this.id = id;
     }
 
-    public Float getSell() {
+    public Long getSell() {
         return sell;
     }
 
-    public void setSell(Float sell) {
+    public void setSell(Long sell) {
         this.sell = sell;
     }
 
-    public Float getBuy() {
+    public Long getBuy() {
         return buy;
     }
 
-    public void setBuy(Float buy) {
+    public void setBuy(Long buy) {
         this.buy = buy;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }

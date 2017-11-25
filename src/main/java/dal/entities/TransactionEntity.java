@@ -1,6 +1,9 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by parham on 27/10/2017.
@@ -12,16 +15,28 @@ public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
-    private String date;
+    @NotNull
+    @Min(100000)
+    private Long date;
 
     @Column(nullable = false)
-    private float mablagh;
+    @NotNull
+    @Min(100)
+    private Long mablagh;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 20)
     private String type;
+
+    @Column(nullable = false)
+    @NotNull
+    @Min(1)
+    private Long transactionSourceId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id", nullable = false)
@@ -41,19 +56,19 @@ public class TransactionEntity {
         this.id = id;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
-    public float getMablagh() {
+    public Long getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(float mablagh) {
+    public void setMablagh(Long mablagh) {
         this.mablagh = mablagh;
     }
 
@@ -87,5 +102,13 @@ public class TransactionEntity {
 
     public void setFileEntity(FileEntity fileEntity) {
         this.fileEntity = fileEntity;
+    }
+
+    public Long getTransactionSourceId() {
+        return transactionSourceId;
+    }
+
+    public void setTransactionSourceId(Long transactionSourceId) {
+        this.transactionSourceId = transactionSourceId;
     }
 }

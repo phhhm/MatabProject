@@ -14,10 +14,12 @@ public class PartialStorageValidator {
         List<String> result = new ArrayList<String>();
         if (partialStorageDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (partialStorageDto!=null && (partialStorageDto.getDrugAmountInUnit()== null
-        || partialStorageDto.getDrugDeliveryId() == null
-        || partialStorageDto.getDrugId() == null))
-            result.add(ValidationMessages.fieldEmpty);
+        if (partialStorageDto!=null && partialStorageDto.getDrugAmountInUnit()== null)
+            result.add(ValidationMessages.drugAmountInUnitEmpty);
+        if (partialStorageDto != null && partialStorageDto.getDrugDeliveryId() == null)
+            result.add(ValidationMessages.drugDeliveryIdEmpty);
+        if (partialStorageDto != null && partialStorageDto.getDrugId() == null)
+            result.add(ValidationMessages.drugIdEmpty);
         return result;
     }
 

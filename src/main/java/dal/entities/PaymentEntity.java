@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -13,21 +15,28 @@ public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false )
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Min(10000)
     private Long mainPayment;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
+    @Min(10000)
     private Long bime;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
+    @Min(1000)
     private Long kasri;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
+    @Min(1000)
     private Long sanavat;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
+    @Min(1000)
     private Integer maliat;
 
     @OneToOne(fetch = FetchType.LAZY)

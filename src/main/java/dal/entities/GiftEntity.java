@@ -1,6 +1,9 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by parham on 27/10/2017.
@@ -12,12 +15,17 @@ public class GiftEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Digits(fraction = 3, integer = 20)
     private String cause;
 
     @Column(nullable = false)
+    @NotNull
+    @Min(1000)
     private Long mablagh;
 
     @OneToOne(fetch = FetchType.LAZY)

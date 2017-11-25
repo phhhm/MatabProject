@@ -1,6 +1,7 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,7 @@ public class PrescriptionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @OneToMany(mappedBy = "prescriptionEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

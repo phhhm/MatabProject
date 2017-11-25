@@ -14,13 +14,14 @@ public class VisitValidator {
         List<String> result = new ArrayList<String>();
         if (visitDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (visitDto!=null && (visitDto.getNextVisitDate()== null
-                || visitDto.getVisitDate() == null
-                || visitDto.getEmployeeId() == null
-                || visitDto.getFileId() == null
-                || visitDto.getNextVisitDate().trim().equals("")
-                || visitDto.getVisitDate().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (visitDto!=null && visitDto.getNextVisitDate()== null)
+            result.add(ValidationMessages.nextVisitDateEmpty);
+        if (visitDto != null && visitDto.getVisitDate() == null)
+            result.add(ValidationMessages.dateEmpty);
+        if (visitDto != null && visitDto.getEmployeeId() == null)
+            result.add(ValidationMessages.employeeIdEmpty);
+        if (visitDto != null && visitDto.getFileId() == null)
+            result.add(ValidationMessages.fieldIdEmpty);
         return result;
     }
 

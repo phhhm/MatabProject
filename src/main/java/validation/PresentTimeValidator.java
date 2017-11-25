@@ -13,14 +13,14 @@ public class PresentTimeValidator {
         List<String> result = new ArrayList<String>();
         if (presentTimeDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (presentTimeDto!=null && (presentTimeDto.getEndTime()== null
-                || presentTimeDto.getStartTime() == null
-                || presentTimeDto.getWeekDay() == null
-                || presentTimeDto.getEmployeeId() == null
-                || presentTimeDto.getWeekDay().trim().equals("")
-                || presentTimeDto.getStartTime().trim().equals("")
-                || presentTimeDto.getEndTime().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (presentTimeDto!=null && presentTimeDto.getEndTime()== null)
+            result.add(ValidationMessages.endTimeEmpty);
+        if (presentTimeDto != null && presentTimeDto.getStartTime() == null)
+            result.add(ValidationMessages.startTimeEmpty);
+        if (presentTimeDto != null && (presentTimeDto.getWeekDay() == null || presentTimeDto.getWeekDay().trim().equals("")))
+            result.add(ValidationMessages.weekDayEmpty);
+        if (presentTimeDto != null && presentTimeDto.getEmployeeId() == null)
+            result.add(ValidationMessages.employeeIdEmpty);
         return result;
     }
 

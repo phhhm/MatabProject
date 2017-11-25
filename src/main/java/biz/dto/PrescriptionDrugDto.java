@@ -1,7 +1,7 @@
 package biz.dto;
 
 public class PrescriptionDrugDto {
-    private String consumableDose;
+    private Integer consumableDose;
     private Long id;
     private Long prescriptionId;
     private Long drugId;
@@ -30,11 +30,11 @@ public class PrescriptionDrugDto {
         this.id = id;
     }
 
-    public String getConsumableDose() {
+    public Integer getConsumableDose() {
         return consumableDose;
     }
 
-    public void setConsumableDose(String consumableDose) {
+    public void setConsumableDose(Integer consumableDose) {
         this.consumableDose = consumableDose;
     }
 }

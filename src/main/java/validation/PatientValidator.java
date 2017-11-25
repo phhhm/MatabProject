@@ -14,20 +14,22 @@ public class PatientValidator {
         List<String> result = new ArrayList<String>();
         if (patientDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (patientDto!=null && (patientDto.getCertificateCode() == null
-                || patientDto.getFatherName() == null
-                || patientDto.getFirstName() == null
-                || patientDto.getHomeAddress() == null
-                || patientDto.getLastName() == null
-                || patientDto.getPhoneNumber() == null
-                || patientDto.getNationalCode() == null
-                || patientDto.getSex() == null
-                || patientDto.getLastName().trim().equals("")
-                || patientDto.getFirstName().trim().equals("")
-                || patientDto.getHomeAddress().trim().equals("")
-                || patientDto.getSex().trim().equals("")
-                || patientDto.getFatherName().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (patientDto!=null && patientDto.getCertificateCode() == null)
+            result.add(ValidationMessages.ucodeEmpty);
+        if (patientDto != null && (patientDto.getFatherName() == null || patientDto.getFatherName().trim().equals("")))
+            result.add(ValidationMessages.fatherNameEmpty);
+        if (patientDto != null && (patientDto.getFirstName() == null || patientDto.getFirstName().trim().equals("")))
+            result.add(ValidationMessages.firstNameEmpty);
+        if (patientDto != null && (patientDto.getHomeAddress() == null || patientDto.getHomeAddress().trim().equals("")))
+            result.add(ValidationMessages.homeAddressEmpty);
+        if (patientDto != null && (patientDto.getLastName() == null || patientDto.getLastName().trim().equals("")))
+            result.add(ValidationMessages.lastNameEmpty);
+        if (patientDto != null && patientDto.getPhoneNumber() == null)
+            result.add(ValidationMessages.phoneNumberEmpty);
+        if (patientDto != null && patientDto.getNationalCode() == null)
+            result.add(ValidationMessages.uidEmpty);
+        if (patientDto != null && (patientDto.getSex() == null || patientDto.getSex().trim().equals("")))
+            result.add(ValidationMessages.sexEmpty);
         return result;
     }
 

@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -9,17 +11,24 @@ public class ContractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Min(100000)
     private Long mablagh;
 
     @Column(nullable = false)
-    private String startContractTime;
+    @NotNull
+    @Min(100000)
+    private Long startContractTime;
 
     @Column(nullable = false)
-    private String endContractTime;
+    @NotNull
+    @Min(100000)
+    private Long endContractTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -41,19 +50,19 @@ public class ContractEntity {
         this.mablagh = mablagh;
     }
 
-    public String getStartContractTime() {
+    public Long getStartContractTime() {
         return startContractTime;
     }
 
-    public void setStartContractTime(String startContractTime) {
+    public void setStartContractTime(Long startContractTime) {
         this.startContractTime = startContractTime;
     }
 
-    public String getEndContractTime() {
+    public Long getEndContractTime() {
         return endContractTime;
     }
 
-    public void setEndContractTime(String endContractTime) {
+    public void setEndContractTime(Long endContractTime) {
         this.endContractTime = endContractTime;
     }
 

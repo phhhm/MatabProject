@@ -8,8 +8,8 @@ import java.util.Date;
 public class ContractDto {
     private Long id;
     private Long mablagh;
-    private String startContractTime;
-    private String endContractTime;
+    private Long startContractTime;
+    private Long endContractTime;
     private Long employeeId;
 
 
@@ -37,19 +37,19 @@ public class ContractDto {
         this.mablagh = mablagh;
     }
 
-    public String getStartContractTime() {
+    public Long getStartContractTime() {
         return startContractTime;
     }
 
-    public void setStartContractTime(String startContractTime) {
+    public void setStartContractTime(Long startContractTime) {
         this.startContractTime = startContractTime;
     }
 
-    public String getEndContractTime() {
+    public Long getEndContractTime() {
         return endContractTime;
     }
 
-    public void setEndContractTime(String endContractTime) {
+    public void setEndContractTime(Long endContractTime) {
         this.endContractTime = endContractTime;
     }
 }

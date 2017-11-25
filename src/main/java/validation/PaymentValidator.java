@@ -13,13 +13,14 @@ public class PaymentValidator {
         List<String> result = new ArrayList<String>();
         if (paymentDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (paymentDto!=null && (paymentDto.getBime()== null
-                || paymentDto.getKasri() == null
-                || paymentDto.getMainPayment() == null
-                || paymentDto.getMaliat() == null
-                || paymentDto.getEmployeeId() == null
-                || paymentDto.getSanavat() == null))
-            result.add(ValidationMessages.fieldEmpty);
+        if (paymentDto!=null && paymentDto.getBime()== null)
+            result.add(ValidationMessages.bimeEmpty);
+        if (paymentDto != null && paymentDto.getMainPayment() == null)
+            result.add(ValidationMessages.mainPaymentEmpty);
+        if (paymentDto != null && paymentDto.getMaliat() == null)
+            result.add(ValidationMessages.maliatEmpty);
+        if (paymentDto != null && paymentDto.getEmployeeId() == null)
+            result.add(ValidationMessages.employeeIdEmpty);
         return result;
     }
 

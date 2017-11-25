@@ -1,6 +1,8 @@
 package dal.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "visit_entity")
@@ -9,13 +11,18 @@ public class VisitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+    @NotNull
     private Long id;
 
     @Column(nullable = false)
-    private String visitDate;
+    @NotNull
+    @Min(100000)
+    private Long visitDate;
 
     @Column(nullable = false)
-    private String nextVisitDate;
+    @NotNull
+    @Min(100000)
+    private Long nextVisitDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -36,19 +43,19 @@ public class VisitEntity {
         this.id = id;
     }
 
-    public String getVisitDate() {
+    public Long getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(String visitDate) {
+    public void setVisitDate(Long visitDate) {
         this.visitDate = visitDate;
     }
 
-    public String getNextVisitDate() {
+    public Long getNextVisitDate() {
         return nextVisitDate;
     }
 
-    public void setNextVisitDate(String nextVisitDate) {
+    public void setNextVisitDate(Long nextVisitDate) {
         this.nextVisitDate = nextVisitDate;
     }
 

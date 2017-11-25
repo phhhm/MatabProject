@@ -14,10 +14,10 @@ public class GiftValidator {
         List<String> result = new ArrayList<String>();
         if (giftDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (giftDto!=null && (giftDto.getCause()== null
-                || giftDto.getMablagh() == null
-                || giftDto.getCause().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        if (giftDto!=null && (giftDto.getCause()== null || giftDto.getCause().trim().equals("")))
+            result.add(ValidationMessages.causeEmpty);
+        if (giftDto != null && giftDto.getMablagh() == null)
+            result.add(ValidationMessages.mablaghEmpty);
         return result;
     }
 

@@ -8,10 +8,19 @@ import java.util.Date;
 public class TransactionDto {
 
     private Long id;
-    private String date;
-    private Float mablagh;
+    private Long date;
+    private Long mablagh;
     private String type;
     private Long paymentId;
+    private Long transactionSourceId;
+
+    public Long getTransactionSourceId() {
+        return transactionSourceId;
+    }
+
+    public void setTransactionSourceId(Long transactionSourceId) {
+        this.transactionSourceId = transactionSourceId;
+    }
 
     public Long getPaymentId() {
         return paymentId;
@@ -29,19 +38,19 @@ public class TransactionDto {
         this.id = id;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
-    public Float getMablagh() {
+    public Long getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Float mablagh) {
+    public void setMablagh(Long mablagh) {
         this.mablagh = mablagh;
     }
 
