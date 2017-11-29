@@ -41,8 +41,7 @@ public class EmployeeEntity {
 
     @Column(nullable = false)
     @NotNull
-    @Min(7)
-    @Max(20)
+    @Min(1000000)
     private Long phoneNumber;
 
     @Column(nullable = false)

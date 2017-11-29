@@ -51,11 +51,10 @@ public class PartialStorageBiz {
     }
 
     public void add(PartialStorageDto partialStorageDto) throws  SQLException, ValidationException {
-        Long drugId = partialStorageDto.getDrugId();
-        Long drugDeliveryId1 = partialStorageDto.getDrugDeliveryId();
-        Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
         List<String> validationResult = partialStorageValidator.dtoValidation(partialStorageDto);
         if (validationResult.size() == 0) {
+            Long drugId = partialStorageDto.getDrugId();
+            Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
             partialStorageDto.setId(null);
             PartialStorageEntity partialStorageEntity = (PartialStorageEntity) converter.getObject(partialStorageDto, PartialStorageEntity.class);
             partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
@@ -67,10 +66,10 @@ public class PartialStorageBiz {
     }
 
     public void edit(PartialStorageDto partialStorageDto) throws SQLException, ValidationException {
-        Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
-        Long drugId = partialStorageDto.getDrugId();
         List<String> validationResult = partialStorageValidator.dtoValidation(partialStorageDto);
         if (validationResult.size() == 0) {
+            Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
+            Long drugId = partialStorageDto.getDrugId();
             PartialStorageEntity partialStorageEntity = (PartialStorageEntity) converter.getObject(partialStorageDto, PartialStorageEntity.class);
             partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
             partialStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));

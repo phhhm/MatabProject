@@ -60,9 +60,9 @@ public class CostBiz {
     }
 
     public void edit(CostDto costDto) throws SQLException, ValidationException {
-        Long drugId = costDto.getDrugId();
         List<String> validationResult = costValidator.dtoValidation(costDto);
         if (validationResult.size() == 0) {
+            Long drugId = costDto.getDrugId();
             CostEntity costEntity = (CostEntity) converter.getObject(costDto, CostEntity.class);
             costEntity.setDrugEntity(drugDaoImp.getById(drugId));
             costDaoImp.edit(costEntity);

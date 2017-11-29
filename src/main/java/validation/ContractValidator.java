@@ -11,18 +11,31 @@ import java.util.List;
 public class ContractValidator {
     public List<String> dtoValidation(ContractDto contractDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (contractDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (contractDto!=null && (contractDto.getEndContractTime()== null
-                || contractDto.getEndContractTime().trim().equals("")))
-            result.add(ValidationMessages.endContractEmpty);
-        if(contractDto != null && contractDto.getMablagh() == null)
-            result.add(ValidationMessages.mablaghEmpty);
-        if(contractDto != null && contractDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeIdEmpty);
-        if (contractDto != null && (contractDto.getStartContractTime() == null
-                || contractDto.getStartContractTime().trim().equals("")))
-            result.add(ValidationMessages.startContractEmpty);
+        else {
+            if (contractDto != null && contractDto.getEndContractTime() == null) {
+                result.add(ValidationMessages.endContractEmpty);
+                messageCount++;
+            }
+            if (contractDto != null && contractDto.getMablagh() == null) {
+                result.add(ValidationMessages.mablaghEmpty);
+                messageCount++;
+            }
+            if (contractDto != null && contractDto.getEmployeeId() == null) {
+                result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+            if (contractDto != null && contractDto.getStartContractTime() == null) {
+                result.add(ValidationMessages.startContractEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > 3){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

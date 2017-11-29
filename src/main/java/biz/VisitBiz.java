@@ -52,10 +52,10 @@ public class VisitBiz {
     }
 
     public void add(VisitDto visitDto) throws  SQLException, ValidationException {
-        Long fileId = visitDto.getFileId();
-        Long employeeId = visitDto.getEmployeeId();
         List<String> validationResult = visitValidator.dtoValidation(visitDto);
         if (validationResult.size() == 0) {
+            Long fileId = visitDto.getFileId();
+            Long employeeId = visitDto.getEmployeeId();
             visitDto.setId(null);
             VisitEntity visitEntity = (VisitEntity) converter.getObject(visitDto, VisitEntity.class);
             visitEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
@@ -67,10 +67,10 @@ public class VisitBiz {
     }
 
     public void edit(VisitDto visitDto) throws SQLException, ValidationException {
-        Long fileId = visitDto.getFileId();
-        Long employeeId = visitDto.getEmployeeId();
         List<String> validationResult = visitValidator.dtoValidation(visitDto);
         if (validationResult.size() == 0) {
+            Long fileId = visitDto.getFileId();
+            Long employeeId = visitDto.getEmployeeId();
             VisitEntity visitEntity = (VisitEntity) converter.getObject(visitDto, VisitEntity.class);
             visitEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
             visitEntity.setFileEntity(fileDaoImp.getById(fileId));

@@ -50,9 +50,9 @@ public class GiftBiz {
     }
 
     public void add(GiftDto giftDto) throws  SQLException, ValidationException {
-        Long paymentId = giftDto.getPaymentId();
         List<String> validationResult = giftValidator.dtoValidation(giftDto);
         if (validationResult.size() == 0) {
+            Long paymentId = giftDto.getPaymentId();
             giftDto.setId(null);
             GiftEntity giftEntity = (GiftEntity) converter.getObject(giftDto, GiftEntity.class);
             giftEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
@@ -63,9 +63,9 @@ public class GiftBiz {
     }
 
     public void edit(GiftDto giftDto) throws SQLException, ValidationException {
-        Long paymentId = giftDto.getPaymentId();
         List<String> validationResult = giftValidator.dtoValidation(giftDto);
         if (validationResult.size() == 0) {
+            Long paymentId = giftDto.getPaymentId();
             GiftEntity giftEntity = (GiftEntity) converter.getObject(giftDto, GiftEntity.class);
             giftEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
             giftDaoImp.edit(giftEntity);

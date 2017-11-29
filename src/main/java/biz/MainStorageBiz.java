@@ -51,10 +51,10 @@ public class MainStorageBiz {
     }
 
     public void add(MainStorageDto mainStorageDto) throws  SQLException, ValidationException {
-        Long drugId = mainStorageDto.getDrugId();
-        Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
         List<String> validationResult = mainStorageValidator.dtoValidation(mainStorageDto);
         if (validationResult.size() == 0) {
+            Long drugId = mainStorageDto.getDrugId();
+            Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
             mainStorageDto.setId(null);
             MainStorageEntity mainStorageEntity = (MainStorageEntity) converter.getObject(mainStorageDto, MainStorageEntity.class);
             mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
@@ -66,10 +66,10 @@ public class MainStorageBiz {
     }
 
     public void edit(MainStorageDto mainStorageDto) throws SQLException, ValidationException {
-        Long drugId = mainStorageDto.getDrugId();
-        Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
         List<String> validationResult = mainStorageValidator.dtoValidation(mainStorageDto);
         if (validationResult.size() == 0) {
+            Long drugId = mainStorageDto.getDrugId();
+            Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
             MainStorageEntity mainStorageEntity = (MainStorageEntity) converter.getObject(mainStorageDto, MainStorageEntity.class);
             mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
             mainStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));

@@ -11,16 +11,31 @@ import java.util.List;
 public class CostValidator {
     public List<String> dtoValidation(CostDto costDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (costDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (costDto!=null && costDto.getBuy()== null)
-            result.add(ValidationMessages.buyEmpty);
-        if(costDto != null && costDto.getSell() == null)
-            result.add(ValidationMessages.sellEmpty);
-        if(costDto != null && (costDto.getDate() == null || costDto.getDate().trim().equals("")))
-            result.add(ValidationMessages.dateEmpty);
-        if(costDto != null && costDto.getDrugId() == null)
-            result.add(ValidationMessages.drugIdEmpty);
+        else {
+            if (costDto != null && costDto.getBuy() == null) {
+                result.add(ValidationMessages.buyEmpty);
+                messageCount++;
+            }
+            if (costDto != null && costDto.getSell() == null) {
+                result.add(ValidationMessages.sellEmpty);
+                messageCount++;
+            }
+            if (costDto != null && costDto.getDate() == null) {
+                result.add(ValidationMessages.dateEmpty);
+                messageCount++;
+            }
+            if (costDto != null && costDto.getDrugId() == null) {
+                result.add(ValidationMessages.drugIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > 3){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

@@ -13,7 +13,7 @@ public class PrescriptionDrugValidator {
         List<String> result = new ArrayList<String>();
         if (prescriptionDrugDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (prescriptionDrugDto!=null && (prescriptionDrugDto.getConsumableDose()== null || prescriptionDrugDto.getConsumableDose().trim().equals("")))
+        if (prescriptionDrugDto!=null && prescriptionDrugDto.getConsumableDose()== null)
             result.add(ValidationMessages.consumableDoseEmpty);
         if (prescriptionDrugDto != null && prescriptionDrugDto.getDrugId() == null)
             result.add(ValidationMessages.drugIdEmpty);

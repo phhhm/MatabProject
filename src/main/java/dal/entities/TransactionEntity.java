@@ -35,7 +35,6 @@ public class TransactionEntity {
 
     @Column(nullable = false)
     @NotNull
-    @Min(1)
     private Long transactionSourceId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

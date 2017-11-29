@@ -51,10 +51,10 @@ public class DrugDeliveryBiz {
     }
 
     public void add(DrugDeliveryDto drugDeliveryDto) throws  SQLException, ValidationException {
-        Long transactionId = drugDeliveryDto.getTransactionId();
-        Long employeeId = drugDeliveryDto.getEmployeeId();
         List<String> validationResult = drugDeliveryValidator.dtoValidation(drugDeliveryDto);
         if (validationResult.size() == 0) {
+            Long employeeId = drugDeliveryDto.getEmployeeId();
+            Long transactionId = drugDeliveryDto.getTransactionId();
             drugDeliveryDto.setId(null);
             DrugDeliveryEntity drugDeliveryEntity = (DrugDeliveryEntity) converter.getObject(drugDeliveryDto, DrugDeliveryEntity.class);
             drugDeliveryEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
@@ -66,10 +66,10 @@ public class DrugDeliveryBiz {
     }
 
     public void edit(DrugDeliveryDto drugDeliveryDto) throws SQLException, ValidationException {
-        Long transactionId = drugDeliveryDto.getTransactionId();
-        Long employeeId = drugDeliveryDto.getEmployeeId();
         List<String> validationResult = drugDeliveryValidator.dtoValidation(drugDeliveryDto);
         if (validationResult.size() == 0) {
+            Long transactionId = drugDeliveryDto.getTransactionId();
+            Long employeeId = drugDeliveryDto.getEmployeeId();
             DrugDeliveryEntity drugDeliveryEntity = (DrugDeliveryEntity) converter.getObject(drugDeliveryDto, DrugDeliveryEntity.class);
             drugDeliveryEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
             drugDeliveryEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));

@@ -48,9 +48,9 @@ public class PrescriptionBiz {
     }
 
     public void add(PrescriptionDto prescriptionDto) throws  SQLException, ValidationException {
-        Long visitId = prescriptionDto.getVisitId();
         List<String> validationResult = prescriptionValidator.dtoValidation(prescriptionDto);
         if (validationResult.size() == 0) {
+            Long visitId = prescriptionDto.getVisitId();
             prescriptionDto.setId(null);
             PrescriptionEntity prescriptionEntity = (PrescriptionEntity) converter.getObject(prescriptionDto, PrescriptionEntity.class);
             prescriptionEntity.setVisitEntity(visitDaoImp.getById(visitId));
@@ -61,9 +61,9 @@ public class PrescriptionBiz {
     }
 
     public void edit(PrescriptionDto prescriptionDto) throws SQLException, ValidationException {
-        Long visitId = prescriptionDto.getVisitId();
         List<String> validationResult = prescriptionValidator.dtoValidation(prescriptionDto);
         if (validationResult.size() == 0) {
+            Long visitId = prescriptionDto.getVisitId();
             PrescriptionEntity prescriptionEntity = (PrescriptionEntity) converter.getObject(prescriptionDto, PrescriptionEntity.class);
             prescriptionEntity.setVisitEntity(visitDaoImp.getById(visitId));
             prescriptionDaoImp.edit(prescriptionEntity);

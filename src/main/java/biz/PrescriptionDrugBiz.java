@@ -51,10 +51,10 @@ public class PrescriptionDrugBiz {
     }
 
     public void add(PrescriptionDrugDto prescriptionDrugDto) throws  SQLException, ValidationException {
-        Long drugId = prescriptionDrugDto.getDrugId();
-        Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
         List<String> validationResult = prescriptionDrugValidator.dtoValidation(prescriptionDrugDto);
         if (validationResult.size() == 0) {
+            Long drugId = prescriptionDrugDto.getDrugId();
+            Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
             prescriptionDrugDto.setId(null);
             PrescriptionDrugEntity prescriptionDrugEntity = (PrescriptionDrugEntity) converter.getObject(prescriptionDrugDto, PrescriptionDrugEntity.class);
             prescriptionDrugEntity.setDrugEntity(drugDaoImp.getById(drugId));
@@ -66,10 +66,10 @@ public class PrescriptionDrugBiz {
     }
 
     public void edit(PrescriptionDrugDto prescriptionDrugDto) throws SQLException, ValidationException {
-        Long drugId = prescriptionDrugDto.getDrugId();
-        Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
         List<String> validationResult = prescriptionDrugValidator.dtoValidation(prescriptionDrugDto);
         if (validationResult.size() == 0) {
+            Long drugId = prescriptionDrugDto.getDrugId();
+            Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
             PrescriptionDrugEntity prescriptionDrugEntity = (PrescriptionDrugEntity) converter.getObject(prescriptionDrugDto, PrescriptionDrugEntity.class);
             prescriptionDrugEntity.setDrugEntity(drugDaoImp.getById(drugId));
             prescriptionDrugEntity.setPrescriptionEntity(prescriptionDaoImp.getById(prescriptionId));

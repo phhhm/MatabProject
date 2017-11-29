@@ -51,9 +51,9 @@ public class TransactionBiz {
     }
 
     public void add(TransactionDto transactionDto) throws  SQLException, ValidationException {
-        Long paymentId = transactionDto.getPaymentId();
         List<String> validationResult = transactionValidator.dtoValidation(transactionDto);
         if (validationResult.size() == 0) {
+            Long paymentId = transactionDto.getPaymentId();
             transactionDto.setId(null);
             TransactionEntity transactionEntity = (TransactionEntity) converter.getObject(transactionDto, TransactionEntity.class);
             transactionEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
@@ -64,9 +64,9 @@ public class TransactionBiz {
     }
 
     public void edit(TransactionDto transactionDto) throws SQLException, ValidationException {
-        Long paymentId = transactionDto.getPaymentId();
         List<String> validationResult = transactionValidator.dtoValidation(transactionDto);
         if (validationResult.size() == 0) {
+            Long paymentId = transactionDto.getPaymentId();
             TransactionEntity transactionEntity = (TransactionEntity) converter.getObject(transactionDto, TransactionEntity.class);
             transactionEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
             transactionDaoImp.edit(transactionEntity);

@@ -51,9 +51,9 @@ public class ContractBiz {
     }
 
     public void add(ContractDto contractDto) throws  SQLException, ValidationException {
-        Long employeeId = contractDto.getEmployeeId();
         List<String> validationResult = contractValidator.dtoValidation(contractDto);
         if (validationResult.size() == 0) {
+            Long employeeId = contractDto.getEmployeeId();
             contractDto.setId(null);
             ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
             contractEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
@@ -64,9 +64,9 @@ public class ContractBiz {
     }
 
     public void edit(ContractDto contractDto) throws SQLException, ValidationException {
-        Long employeeId = contractDto.getEmployeeId();
         List<String> validationResult = contractValidator.dtoValidation(contractDto);
         if (validationResult.size() == 0) {
+            Long employeeId = contractDto.getEmployeeId();
             ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
             contractEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
             contractDaoImp.edit(contractEntity);

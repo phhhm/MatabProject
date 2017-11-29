@@ -54,10 +54,10 @@ public class FileBiz {
     }
 
     public void add(FileDto fileDto) throws  SQLException, ValidationException {
-        Long transactionId = fileDto.getTransactionId();
-        Long patientId = fileDto.getPatientId();
         List<String> validationResult = fileValidator.dtoValidation(fileDto);
         if (validationResult.size() == 0) {
+            Long patientId = fileDto.getPatientId();
+            Long transactionId = fileDto.getTransactionId();
             fileDto.setId(null);
             FileEntity fileEntity = (FileEntity) converter.getObject(fileDto, FileEntity.class);
             fileEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
@@ -69,10 +69,10 @@ public class FileBiz {
     }
 
     public void edit(FileDto fileDto) throws SQLException, ValidationException {
-        Long transactionId = fileDto.getTransactionId();
-        Long patientId = fileDto.getPatientId();
         List<String> validationResult = fileValidator.dtoValidation(fileDto);
         if (validationResult.size() == 0) {
+            Long transactionId = fileDto.getTransactionId();
+            Long patientId = fileDto.getPatientId();
             FileEntity fileEntity = (FileEntity) converter.getObject(fileDto, FileEntity.class);
             fileEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
             fileEntity.setPatientEntity(patientDaoImp.getById(patientId));

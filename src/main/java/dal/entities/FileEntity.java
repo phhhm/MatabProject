@@ -23,7 +23,7 @@ public class FileEntity {
 
     @Column(nullable = false)
     @NotNull
-    @Max(1)
+    @Min(1)
     private Long fileCode;
 
     @Column(nullable = false)

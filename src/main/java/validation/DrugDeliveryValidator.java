@@ -13,7 +13,7 @@ public class DrugDeliveryValidator {
         List<String> result = new ArrayList<String>();
         if (drugDeliveryDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (drugDeliveryDto!=null && (drugDeliveryDto.getDeliveryDate()== null || drugDeliveryDto.getDeliveryDate().trim().equals("")))
+        if (drugDeliveryDto!=null && drugDeliveryDto.getDeliveryDate()== null)
             result.add(ValidationMessages.deliveryDateEmpty);
         if (drugDeliveryDto!= null && drugDeliveryDto.getSourceId() == null)
             result.add(ValidationMessages.sourceIdEmpty);
@@ -22,7 +22,7 @@ public class DrugDeliveryValidator {
         if (drugDeliveryDto != null && drugDeliveryDto.getUseDuration() == null)
             result.add(ValidationMessages.useDurationEmpty);
         if (drugDeliveryDto != null && drugDeliveryDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeEmpty);
+            result.add(ValidationMessages.employeeIdEmpty);
         if (drugDeliveryDto != null && drugDeliveryDto.getTransactionId() == null)
             result.add(ValidationMessages.transactionIdEmpty);
         return result;

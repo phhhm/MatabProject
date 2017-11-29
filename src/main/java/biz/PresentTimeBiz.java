@@ -50,9 +50,9 @@ public class PresentTimeBiz {
     }
 
     public void add(PresentTimeDto presentTimeDto) throws  SQLException, ValidationException {
-        Long employeeId = presentTimeDto.getEmployeeId();
         List<String> validationResult = presentTimeValidator.dtoValidation(presentTimeDto);
         if (validationResult.size() == 0) {
+            Long employeeId = presentTimeDto.getEmployeeId();
             presentTimeDto.setId(null);
             PresentTimeEntity presentTimeEntity = (PresentTimeEntity) converter.getObject(presentTimeDto, PresentTimeEntity.class);
             presentTimeEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
@@ -63,9 +63,9 @@ public class PresentTimeBiz {
     }
 
     public void edit(PresentTimeDto presentTimeDto) throws SQLException, ValidationException {
-        Long employeeId = presentTimeDto.getEmployeeId();
         List<String> validationResult = presentTimeValidator.dtoValidation(presentTimeDto);
         if (validationResult.size() == 0) {
+            Long employeeId = presentTimeDto.getEmployeeId();
             PresentTimeEntity presentTimeEntity = (PresentTimeEntity) converter.getObject(presentTimeDto, PresentTimeEntity.class);
             presentTimeEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
             presentTimeDaoImp.edit(presentTimeEntity);

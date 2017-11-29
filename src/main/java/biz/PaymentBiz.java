@@ -50,9 +50,9 @@ public class PaymentBiz {
     }
 
     public void add(PaymentDto paymentDto) throws  SQLException, ValidationException {
-        Long employeeId = paymentDto.getEmployeeId();
         List<String> validationResult = paymentValidator.dtoValidation(paymentDto);
         if (validationResult.size() == 0) {
+            Long employeeId = paymentDto.getEmployeeId();
             paymentDto.setId(null);
             PaymentEntity paymentEntity = (PaymentEntity) converter.getObject(paymentDto, PaymentEntity.class);
             paymentEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
@@ -63,9 +63,9 @@ public class PaymentBiz {
     }
 
     public void edit(PaymentDto paymentDto) throws SQLException, ValidationException {
-        Long employeeId = paymentDto.getEmployeeId();
         List<String> validationResult = paymentValidator.dtoValidation(paymentDto);
         if (validationResult.size() == 0) {
+            Long employeeId = paymentDto.getEmployeeId();
             PaymentEntity paymentEntity = (PaymentEntity) converter.getObject(paymentDto, PaymentEntity.class);
             paymentEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
             paymentDaoImp.edit(paymentEntity);
