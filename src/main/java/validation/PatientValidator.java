@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.PatientDto;
 
@@ -12,24 +13,52 @@ public class PatientValidator {
 
     public List<String> dtoValidation(PatientDto patientDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (patientDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (patientDto!=null && patientDto.getCertificateCode() == null)
-            result.add(ValidationMessages.ucodeEmpty);
-        if (patientDto != null && (patientDto.getFatherName() == null || patientDto.getFatherName().trim().equals("")))
-            result.add(ValidationMessages.fatherNameEmpty);
-        if (patientDto != null && (patientDto.getFirstName() == null || patientDto.getFirstName().trim().equals("")))
-            result.add(ValidationMessages.firstNameEmpty);
-        if (patientDto != null && (patientDto.getHomeAddress() == null || patientDto.getHomeAddress().trim().equals("")))
-            result.add(ValidationMessages.homeAddressEmpty);
-        if (patientDto != null && (patientDto.getLastName() == null || patientDto.getLastName().trim().equals("")))
-            result.add(ValidationMessages.lastNameEmpty);
-        if (patientDto != null && patientDto.getPhoneNumber() == null)
-            result.add(ValidationMessages.phoneNumberEmpty);
-        if (patientDto != null && patientDto.getNationalCode() == null)
-            result.add(ValidationMessages.uidEmpty);
-        if (patientDto != null && (patientDto.getSex() == null || patientDto.getSex().trim().equals("")))
-            result.add(ValidationMessages.sexEmpty);
+        else {
+            if (patientDto != null && patientDto.getCertificateCode() == null){
+                result.add(ValidationMessages.ucodeEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && (patientDto.getFatherName() == null
+                    || patientDto.getFatherName().trim().equals(""))){
+                result.add(ValidationMessages.fatherNameEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && (patientDto.getFirstName() == null
+                    || patientDto.getFirstName().trim().equals(""))){
+                result.add(ValidationMessages.firstNameEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && (patientDto.getHomeAddress() == null
+                    || patientDto.getHomeAddress().trim().equals(""))){
+                result.add(ValidationMessages.homeAddressEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && (patientDto.getLastName() == null
+                    || patientDto.getLastName().trim().equals(""))){
+                result.add(ValidationMessages.lastNameEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && patientDto.getPhoneNumber() == null){
+                result.add(ValidationMessages.phoneNumberEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && patientDto.getNationalCode() == null){
+                result.add(ValidationMessages.uidEmpty);
+                messageCount++;
+            }
+            if (patientDto != null && (patientDto.getSex() == null
+                    || patientDto.getSex().trim().equals(""))){
+                result.add(ValidationMessages.sexEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

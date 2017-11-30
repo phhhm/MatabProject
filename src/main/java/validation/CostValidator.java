@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.CostDto;
 
@@ -32,7 +33,7 @@ public class CostValidator {
                 messageCount++;
             }
         }
-        if (messageCount > 3){
+        if (messageCount > Helper.messageCount){
             result.clear();
             result.add(ValidationMessages.objectEmpty);
         }

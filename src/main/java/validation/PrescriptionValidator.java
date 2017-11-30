@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.PrescriptionDto;
 
@@ -12,10 +13,17 @@ public class PrescriptionValidator {
 
     public List<String> dtoValidation(PrescriptionDto prescriptionDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (prescriptionDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (prescriptionDto!=null && prescriptionDto.getVisitId()== null)
-            result.add(ValidationMessages.visitIdEmpty);
+        else {
+            if (prescriptionDto != null && prescriptionDto.getVisitId() == null)
+                result.add(ValidationMessages.visitIdEmpty);
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

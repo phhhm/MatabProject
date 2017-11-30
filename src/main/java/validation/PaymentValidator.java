@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.PaymentDto;
 
@@ -11,16 +12,31 @@ import java.util.List;
 public class PaymentValidator {
     public List<String> dtoValidation(PaymentDto paymentDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (paymentDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (paymentDto!=null && paymentDto.getBime()== null)
-            result.add(ValidationMessages.bimeEmpty);
-        if (paymentDto != null && paymentDto.getMainPayment() == null)
-            result.add(ValidationMessages.mainPaymentEmpty);
-        if (paymentDto != null && paymentDto.getMaliat() == null)
-            result.add(ValidationMessages.maliatEmpty);
-        if (paymentDto != null && paymentDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeIdEmpty);
+        else {
+            if (paymentDto != null && paymentDto.getBime() == null) {
+                result.add(ValidationMessages.bimeEmpty);
+                messageCount++;
+            }
+            if (paymentDto != null && paymentDto.getMainPayment() == null){
+                result.add(ValidationMessages.mainPaymentEmpty);
+                messageCount++;
+            }
+            if (paymentDto != null && paymentDto.getMaliat() == null){
+                result.add(ValidationMessages.maliatEmpty);
+                messageCount++;
+            }
+            if (paymentDto != null && paymentDto.getEmployeeId() == null){
+                result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

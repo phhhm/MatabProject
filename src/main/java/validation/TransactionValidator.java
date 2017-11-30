@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.TransactionDto;
 
@@ -11,18 +12,36 @@ import java.util.List;
 public class TransactionValidator {
     public List<String> dtoValidation(TransactionDto transactionDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (transactionDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (transactionDto!=null && transactionDto.getDate()== null)
-            result.add(ValidationMessages.dateEmpty);
-        if (transactionDto != null && transactionDto.getMablagh() == null)
-            result.add(ValidationMessages.mablaghEmpty);
-        if (transactionDto != null && (transactionDto.getType() == null || transactionDto.getType().trim().equals("")))
-            result.add(ValidationMessages.typeEmpty);
-        if (transactionDto != null && transactionDto.getPaymentId() == null)
-            result.add(ValidationMessages.paymentIdEmpty);
-        if (transactionDto != null && transactionDto.getTransactionSourceId() == null)
-            result.add(ValidationMessages.transactionSourceIdEmpty);
+        else {
+            if (transactionDto != null && transactionDto.getDate() == null) {
+                result.add(ValidationMessages.dateEmpty);
+                messageCount++;
+            }
+            if (transactionDto != null && transactionDto.getMablagh() == null){
+                result.add(ValidationMessages.mablaghEmpty);
+                messageCount++;
+            }
+            if (transactionDto != null && (transactionDto.getType() == null
+                    || transactionDto.getType().trim().equals(""))){
+                result.add(ValidationMessages.typeEmpty);
+                messageCount++;
+            }
+            if (transactionDto != null && transactionDto.getPaymentId() == null){
+                result.add(ValidationMessages.paymentIdEmpty);
+                messageCount++;
+            }
+            if (transactionDto != null && transactionDto.getTransactionSourceId() == null){
+                result.add(ValidationMessages.transactionSourceIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

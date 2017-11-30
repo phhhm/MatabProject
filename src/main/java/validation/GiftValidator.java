@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.GiftDto;
 
@@ -12,13 +13,23 @@ public class GiftValidator {
 
     public List<String> dtoValidation(GiftDto giftDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (giftDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (giftDto != null && (giftDto.getCause() == null || giftDto.getCause().trim().equals("")))
+            if (giftDto != null && (giftDto.getCause() == null
+                    || giftDto.getCause().trim().equals(""))) {
                 result.add(ValidationMessages.causeEmpty);
-            if (giftDto != null && giftDto.getMablagh() == null)
+                messageCount++;
+            }
+            if (giftDto != null && giftDto.getMablagh() == null) {
                 result.add(ValidationMessages.mablaghEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
         }
         return result;
     }

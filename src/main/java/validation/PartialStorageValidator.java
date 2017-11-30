@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.PartialStorageDto;
 
@@ -12,14 +13,27 @@ public class PartialStorageValidator {
 
     public List<String> dtoValidation(PartialStorageDto partialStorageDto) {
         List<String> result = new ArrayList<String>();
-        if (partialStorageDto==null)
+        int messageCount=0;
+        if (partialStorageDto == null)
             result.add(ValidationMessages.objectEmpty);
-        if (partialStorageDto!=null && partialStorageDto.getDrugAmountInUnit()== null)
+        else {
+        if (partialStorageDto != null && partialStorageDto.getDrugAmountInUnit() == null) {
             result.add(ValidationMessages.drugAmountInUnitEmpty);
-        if (partialStorageDto != null && partialStorageDto.getDrugDeliveryId() == null)
+            messageCount++;
+        }
+        if (partialStorageDto != null && partialStorageDto.getDrugDeliveryId() == null){
             result.add(ValidationMessages.drugDeliveryIdEmpty);
-        if (partialStorageDto != null && partialStorageDto.getDrugId() == null)
+            messageCount++;
+        }
+        if (partialStorageDto != null && partialStorageDto.getDrugId() == null){
             result.add(ValidationMessages.drugIdEmpty);
+            messageCount++;
+        }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

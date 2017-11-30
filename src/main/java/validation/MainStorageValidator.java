@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.MainStorageDto;
 
@@ -12,14 +13,27 @@ public class MainStorageValidator {
 
     public List<String> dtoValidation(MainStorageDto mainStorageDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (mainStorageDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (mainStorageDto!=null && mainStorageDto.getDrugAmountInUnit() == null)
-            result.add(ValidationMessages.drugAmountInUnitEmpty);
-        if (mainStorageDto != null && mainStorageDto.getDrugDeliveryId() == null)
-            result.add(ValidationMessages.drugDeliveryIdEmpty);
-        if (mainStorageDto != null && mainStorageDto.getDrugId() == null)
-            result.add(ValidationMessages.drugIdEmpty);
+        else {
+            if (mainStorageDto != null && mainStorageDto.getDrugAmountInUnit() == null) {
+                result.add(ValidationMessages.drugAmountInUnitEmpty);
+                messageCount++;
+            }
+            if (mainStorageDto != null && mainStorageDto.getDrugDeliveryId() == null){
+                result.add(ValidationMessages.drugDeliveryIdEmpty);
+                messageCount++;
+            }
+            if (mainStorageDto != null && mainStorageDto.getDrugId() == null){
+                result.add(ValidationMessages.drugIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

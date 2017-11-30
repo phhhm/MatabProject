@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.DrugDeliveryDto;
 
@@ -11,20 +12,40 @@ import java.util.List;
 public class DrugDeliveryValidator {
     public List<String> dtoValidation(DrugDeliveryDto drugDeliveryDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (drugDeliveryDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (drugDeliveryDto!=null && drugDeliveryDto.getDeliveryDate()== null)
-            result.add(ValidationMessages.deliveryDateEmpty);
-        if (drugDeliveryDto!= null && drugDeliveryDto.getSourceId() == null)
-            result.add(ValidationMessages.sourceIdEmpty);
-        if (drugDeliveryDto!= null && (drugDeliveryDto.getSourceType() == null || drugDeliveryDto.getSourceType().trim().equals("")))
-            result.add(ValidationMessages.sourceTypeEmpty);
-        if (drugDeliveryDto != null && drugDeliveryDto.getUseDuration() == null)
-            result.add(ValidationMessages.useDurationEmpty);
-        if (drugDeliveryDto != null && drugDeliveryDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeIdEmpty);
-        if (drugDeliveryDto != null && drugDeliveryDto.getTransactionId() == null)
-            result.add(ValidationMessages.transactionIdEmpty);
+        else {
+            if (drugDeliveryDto != null && drugDeliveryDto.getDeliveryDate() == null){
+                result.add(ValidationMessages.deliveryDateEmpty);
+                messageCount++;
+            }
+            if (drugDeliveryDto != null && drugDeliveryDto.getSourceId() == null){
+                result.add(ValidationMessages.sourceIdEmpty);
+                messageCount++;
+            }
+            if (drugDeliveryDto != null && (drugDeliveryDto.getSourceType() == null
+                    || drugDeliveryDto.getSourceType().trim().equals(""))){
+                result.add(ValidationMessages.sourceTypeEmpty);
+                messageCount++;
+            }
+            if (drugDeliveryDto != null && drugDeliveryDto.getUseDuration() == null){
+                result.add(ValidationMessages.useDurationEmpty);
+                messageCount++;
+            }
+            if (drugDeliveryDto != null && drugDeliveryDto.getEmployeeId() == null){
+                result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+            if (drugDeliveryDto != null && drugDeliveryDto.getTransactionId() == null){
+                result.add(ValidationMessages.transactionIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

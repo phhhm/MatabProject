@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.DismissDto;
 
@@ -11,16 +12,29 @@ import java.util.List;
 public class DismissValidator {
     public List<String> dtoValidation(DismissDto dismissDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (dismissDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (dismissDto!=null && (dismissDto.getFromDate()== null
-                || dismissDto.getFromDate().trim().equals("")))
+        else {
+            if (dismissDto != null && (dismissDto.getFromDate() == null
+                    || dismissDto.getFromDate().trim().equals(""))) {
                 result.add(ValidationMessages.fromDateEmpty);
-        if (dismissDto != null && (dismissDto.getUntilDate() == null
-                || dismissDto.getUntilDate().trim().equals("")))
-            result.add(ValidationMessages.untilDateEmpty);
-        if (dismissDto != null && dismissDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+            if (dismissDto != null && (dismissDto.getUntilDate() == null
+                    || dismissDto.getUntilDate().trim().equals(""))){
+                result.add(ValidationMessages.untilDateEmpty);
+                messageCount++;
+            }
+            if (dismissDto != null && dismissDto.getEmployeeId() == null){
+                result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

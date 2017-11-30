@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.PurchaseSourceDto;
 
@@ -12,11 +13,20 @@ public class PurchaseSourceValidator {
 
     public List<String> dtoValidation(PurchaseSourceDto purchaseSourceDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (purchaseSourceDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (purchaseSourceDto!=null && (purchaseSourceDto.getName()== null
-                || purchaseSourceDto.getName().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
+        else {
+            if (purchaseSourceDto != null && (purchaseSourceDto.getName() == null
+                    || purchaseSourceDto.getName().trim().equals(""))) {
+                result.add(ValidationMessages.fieldEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

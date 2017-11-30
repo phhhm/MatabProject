@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.DrugDto;
 
@@ -11,14 +12,30 @@ import java.util.List;
 public class DrugValidator {
     public List<String> dtoValidation(DrugDto drugDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (drugDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (drugDto!=null && (drugDto.getName()== null || drugDto.getName().trim().equals("")))
-            result.add(ValidationMessages.fieldEmpty);
-        if (drugDto != null && (drugDto.getTotalInventory() == null|| drugDto.getTotalInventory().trim().equals("")))
-            result.add(ValidationMessages.totalInventoryEmpty);
-        if (drugDto != null && (drugDto.getUnitType() == null || drugDto.getUnitType().trim().equals("")))
-            result.add(ValidationMessages.unitTypeEmpty);
+        else {
+            if (drugDto != null && (drugDto.getName() == null
+                    || drugDto.getName().trim().equals(""))) {
+                result.add(ValidationMessages.fieldEmpty);
+                messageCount++;
+            }
+            if (drugDto != null && (drugDto.getTotalInventory() == null
+                    || drugDto.getTotalInventory().trim().equals(""))) {
+                result.add(ValidationMessages.totalInventoryEmpty);
+                messageCount++;
+            }
+            if (drugDto != null && (drugDto.getUnitType() == null
+                    || drugDto.getUnitType().trim().equals(""))){
+                result.add(ValidationMessages.unitTypeEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 

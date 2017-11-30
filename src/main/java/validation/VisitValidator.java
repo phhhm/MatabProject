@@ -1,5 +1,6 @@
 package validation;
 
+import accessories.Helper;
 import accessories.ValidationMessages;
 import biz.dto.VisitDto;
 
@@ -12,16 +13,31 @@ public class VisitValidator {
 
     public List<String> dtoValidation(VisitDto visitDto) {
         List<String> result = new ArrayList<String>();
+        int messageCount=0;
         if (visitDto==null)
             result.add(ValidationMessages.objectEmpty);
-        if (visitDto!=null && visitDto.getNextVisitDate()== null)
-            result.add(ValidationMessages.nextVisitDateEmpty);
-        if (visitDto != null && visitDto.getVisitDate() == null)
-            result.add(ValidationMessages.dateEmpty);
-        if (visitDto != null && visitDto.getEmployeeId() == null)
-            result.add(ValidationMessages.employeeIdEmpty);
-        if (visitDto != null && visitDto.getFileId() == null)
-            result.add(ValidationMessages.fieldIdEmpty);
+        else {
+            if (visitDto != null && visitDto.getNextVisitDate() == null) {
+                result.add(ValidationMessages.nextVisitDateEmpty);
+                messageCount++;
+            }
+            if (visitDto != null && visitDto.getVisitDate() == null){
+                result.add(ValidationMessages.dateEmpty);
+                messageCount++;
+            }
+            if (visitDto != null && visitDto.getEmployeeId() == null){
+                result.add(ValidationMessages.employeeIdEmpty);
+                messageCount++;
+            }
+            if (visitDto != null && visitDto.getFileId() == null){
+                result.add(ValidationMessages.fieldIdEmpty);
+                messageCount++;
+            }
+        }
+        if (messageCount > Helper.messageCount){
+            result.clear();
+            result.add(ValidationMessages.objectEmpty);
+        }
         return result;
     }
 
