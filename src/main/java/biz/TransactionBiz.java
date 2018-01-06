@@ -2,8 +2,8 @@ package biz;
 
 import biz.dto.TransactionDto;
 import converter.MainConverter;
-import dal.dao.PaymentDaoImp;
-import dal.dao.TransactionDaoImp;
+import dal.dao.PaymentDao;
+import dal.dao.TransactionDao;
 import dal.entities.TransactionEntity;
 import validation.TransactionValidator;
 
@@ -21,10 +21,10 @@ public class TransactionBiz {
 
 
     @Inject
-    private TransactionDaoImp transactionDaoImp;
+    private TransactionDao transactionDao;
 
     @Inject
-    private PaymentDaoImp paymentDaoImp;
+    private PaymentDao paymentDao;
 
     @Inject
     private TransactionValidator transactionValidator;
@@ -33,7 +33,7 @@ public class TransactionBiz {
     private MainConverter converter;
 
     public List<TransactionDto> getAll() throws SQLException, ValidationException {
-        List<TransactionDto> transactionDtoList = converter.getList(transactionDaoImp.getAll(), TransactionDto.class);
+        List<TransactionDto> transactionDtoList = converter.getList(transactionDao.getAll(), TransactionDto.class);
         List<String> validationResult = transactionValidator.listDtoValidation(transactionDtoList);
         if (validationResult.size() == 0)
             return transactionDtoList;
@@ -42,7 +42,7 @@ public class TransactionBiz {
     }
 
     public TransactionDto getById(Long id) throws SQLException, ValidationException {
-        TransactionDto transactionDto = (TransactionDto) converter.getObject(transactionDaoImp.getById(id), TransactionDto.class);
+        TransactionDto transactionDto = (TransactionDto) converter.getObject(transactionDao.getById(id), TransactionDto.class);
         List<String> validationResult = transactionValidator.dtoValidation(transactionDto);
         if (validationResult.size()==0)
             return transactionDto;
@@ -56,8 +56,8 @@ public class TransactionBiz {
             Long paymentId = transactionDto.getPaymentId();
             transactionDto.setId(null);
             TransactionEntity transactionEntity = (TransactionEntity) converter.getObject(transactionDto, TransactionEntity.class);
-            transactionEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
-            transactionDaoImp.Add(transactionEntity);
+            transactionEntity.setPaymentEntity(paymentDao.getById(paymentId));
+            transactionDao.Add(transactionEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -68,8 +68,8 @@ public class TransactionBiz {
         if (validationResult.size() == 0) {
             Long paymentId = transactionDto.getPaymentId();
             TransactionEntity transactionEntity = (TransactionEntity) converter.getObject(transactionDto, TransactionEntity.class);
-            transactionEntity.setPaymentEntity(paymentDaoImp.getById(paymentId));
-            transactionDaoImp.edit(transactionEntity);
+            transactionEntity.setPaymentEntity(paymentDao.getById(paymentId));
+            transactionDao.edit(transactionEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -78,10 +78,10 @@ public class TransactionBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        transactionDaoImp.removeById(id);
+        transactionDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        transactionDaoImp.removeAll();
+        transactionDao.removeAll();
     }
 }

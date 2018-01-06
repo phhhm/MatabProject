@@ -2,9 +2,9 @@ package biz;
 
 import biz.dto.MainStorageDto;
 import converter.MainConverter;
-import dal.dao.DrugDaoImp;
-import dal.dao.DrugDeliveryDaoImp;
-import dal.dao.MainStorageDaoImp;
+import dal.dao.DrugDao;
+import dal.dao.DrugDeliveryDao;
+import dal.dao.MainStorageDao;
 import dal.entities.MainStorageEntity;
 import validation.MainStorageValidator;
 
@@ -18,13 +18,13 @@ import java.util.List;
 public class MainStorageBiz {
 
     @Inject
-    private MainStorageDaoImp mainStorageDaoImp;
+    private MainStorageDao mainStorageDao;
 
     @Inject
-    private DrugDaoImp drugDaoImp;
+    private DrugDao drugDao;
 
     @Inject
-    private DrugDeliveryDaoImp drugDeliveryDaoImp;
+    private DrugDeliveryDao drugDeliveryDao;
 
     @Inject
     private MainStorageValidator mainStorageValidator;
@@ -33,7 +33,7 @@ public class MainStorageBiz {
     private MainConverter converter;
 
     public List<MainStorageDto> getAll() throws SQLException, ValidationException {
-        List<MainStorageDto> mainStorageDtoList = converter.getList(mainStorageDaoImp.getAll(), MainStorageDto.class);
+        List<MainStorageDto> mainStorageDtoList = converter.getList(mainStorageDao.getAll(), MainStorageDto.class);
         List<String> validationResult = mainStorageValidator.listDtoValidation(mainStorageDtoList);
         if (validationResult.size() == 0)
             return mainStorageDtoList;
@@ -42,7 +42,7 @@ public class MainStorageBiz {
     }
 
     public MainStorageDto getById(Long id) throws SQLException, ValidationException {
-        MainStorageDto mainStorageDto = (MainStorageDto) converter.getObject(mainStorageDaoImp.getById(id), MainStorageDto.class);
+        MainStorageDto mainStorageDto = (MainStorageDto) converter.getObject(mainStorageDao.getById(id), MainStorageDto.class);
         List<String> validationResult = mainStorageValidator.dtoValidation(mainStorageDto);
         if (validationResult.size()==0)
             return mainStorageDto;
@@ -57,9 +57,9 @@ public class MainStorageBiz {
             Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
             mainStorageDto.setId(null);
             MainStorageEntity mainStorageEntity = (MainStorageEntity) converter.getObject(mainStorageDto, MainStorageEntity.class);
-            mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
-            mainStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            mainStorageDaoImp.Add(mainStorageEntity);
+            mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDao.getById(drugDeliveryId));
+            mainStorageEntity.setDrugEntity(drugDao.getById(drugId));
+            mainStorageDao.Add(mainStorageEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -71,9 +71,9 @@ public class MainStorageBiz {
             Long drugId = mainStorageDto.getDrugId();
             Long drugDeliveryId = mainStorageDto.getDrugDeliveryId();
             MainStorageEntity mainStorageEntity = (MainStorageEntity) converter.getObject(mainStorageDto, MainStorageEntity.class);
-            mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
-            mainStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            mainStorageDaoImp.edit(mainStorageEntity);
+            mainStorageEntity.setDrugDeliveryEntity(drugDeliveryDao.getById(drugDeliveryId));
+            mainStorageEntity.setDrugEntity(drugDao.getById(drugId));
+            mainStorageDao.edit(mainStorageEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -82,10 +82,10 @@ public class MainStorageBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        mainStorageDaoImp.removeById(id);
+        mainStorageDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        mainStorageDaoImp.removeAll();
+        mainStorageDao.removeAll();
     }
 }

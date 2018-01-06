@@ -2,7 +2,7 @@ package biz;
 
 import biz.dto.PatientDto;
 import converter.MainConverter;
-import dal.dao.PatientDaoImp;
+import dal.dao.PatientDao;
 import dal.entities.PatientEntity;
 import validation.PatientValidator;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class PatientBiz {
 
     @Inject
-    private PatientDaoImp patientDaoImp;
+    private PatientDao patientDao;
 
     @Inject
     private PatientValidator patientValidator;
@@ -28,7 +28,7 @@ public class PatientBiz {
     private MainConverter converter;
 
     public List<PatientDto> getAll() throws SQLException, ValidationException {
-        List<PatientDto> patientDtoList = converter.getList(patientDaoImp.getAll(), PatientDto.class);
+        List<PatientDto> patientDtoList = converter.getList(patientDao.getAll(), PatientDto.class);
         List<String> validationResult = patientValidator.listDtoValidation(patientDtoList);
         if (validationResult.size() == 0)
             return patientDtoList;
@@ -37,7 +37,7 @@ public class PatientBiz {
     }
 
     public PatientDto getById(Long id) throws SQLException, ValidationException {
-        PatientDto patientDto = (PatientDto) converter.getObject(patientDaoImp.getById(id), PatientDto.class);
+        PatientDto patientDto = (PatientDto) converter.getObject(patientDao.getById(id), PatientDto.class);
         List<String> validationResult = patientValidator.dtoValidation(patientDto);
         if (validationResult.size()==0)
             return patientDto;
@@ -50,7 +50,7 @@ public class PatientBiz {
         if (validationResult.size() == 0) {
             patientDto.setId(null);
             PatientEntity patientEntity = (PatientEntity) converter.getObject(patientDto, PatientEntity.class);
-            patientDaoImp.Add(patientEntity);
+            patientDao.Add(patientEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -60,7 +60,7 @@ public class PatientBiz {
         List<String> validationResult = patientValidator.dtoValidation(patientDto);
         if (validationResult.size() == 0) {
             PatientEntity patientEntity = (PatientEntity) converter.getObject(patientDto, PatientEntity.class);
-            patientDaoImp.edit(patientEntity);
+            patientDao.edit(patientEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -69,10 +69,10 @@ public class PatientBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        patientDaoImp.removeById(id);
+        patientDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        patientDaoImp.removeAll();
+        patientDao.removeAll();
     }
 }

@@ -11,10 +11,9 @@ public class MainStorageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Integer drugAmountInUnit;
 

@@ -2,8 +2,8 @@ package biz;
 
 import biz.dto.PrescriptionDto;
 import converter.MainConverter;
-import dal.dao.PrescriptionDaoImp;
-import dal.dao.VisitDaoImp;
+import dal.dao.PrescriptionDao;
+import dal.dao.VisitDao;
 import dal.entities.PrescriptionEntity;
 import validation.PrescriptionValidator;
 
@@ -18,10 +18,10 @@ public class PrescriptionBiz {
 
 
     @Inject
-    private PrescriptionDaoImp prescriptionDaoImp;
+    private PrescriptionDao prescriptionDao;
 
     @Inject
-    private VisitDaoImp visitDaoImp;
+    private VisitDao visitDao;
 
     @Inject
     private PrescriptionValidator prescriptionValidator;
@@ -30,7 +30,7 @@ public class PrescriptionBiz {
     private MainConverter converter;
 
     public List<PrescriptionDto> getAll() throws SQLException, ValidationException {
-        List<PrescriptionDto> prescriptionDtoList = converter.getList(prescriptionDaoImp.getAll(), PrescriptionDto.class);
+        List<PrescriptionDto> prescriptionDtoList = converter.getList(prescriptionDao.getAll(), PrescriptionDto.class);
         List<String> validationResult = prescriptionValidator.listDtoValidation(prescriptionDtoList);
         if (validationResult.size() == 0)
             return prescriptionDtoList;
@@ -39,7 +39,7 @@ public class PrescriptionBiz {
     }
 
     public PrescriptionDto getById(Long id) throws SQLException, ValidationException {
-        PrescriptionDto prescriptionDto = (PrescriptionDto) converter.getObject(prescriptionDaoImp.getById(id), PrescriptionDto.class);
+        PrescriptionDto prescriptionDto = (PrescriptionDto) converter.getObject(prescriptionDao.getById(id), PrescriptionDto.class);
         List<String> validationResult = prescriptionValidator.dtoValidation(prescriptionDto);
         if (validationResult.size()==0)
             return prescriptionDto;
@@ -53,8 +53,8 @@ public class PrescriptionBiz {
             Long visitId = prescriptionDto.getVisitId();
             prescriptionDto.setId(null);
             PrescriptionEntity prescriptionEntity = (PrescriptionEntity) converter.getObject(prescriptionDto, PrescriptionEntity.class);
-            prescriptionEntity.setVisitEntity(visitDaoImp.getById(visitId));
-            prescriptionDaoImp.Add(prescriptionEntity);
+            prescriptionEntity.setVisitEntity(visitDao.getById(visitId));
+            prescriptionDao.Add(prescriptionEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -65,8 +65,8 @@ public class PrescriptionBiz {
         if (validationResult.size() == 0) {
             Long visitId = prescriptionDto.getVisitId();
             PrescriptionEntity prescriptionEntity = (PrescriptionEntity) converter.getObject(prescriptionDto, PrescriptionEntity.class);
-            prescriptionEntity.setVisitEntity(visitDaoImp.getById(visitId));
-            prescriptionDaoImp.edit(prescriptionEntity);
+            prescriptionEntity.setVisitEntity(visitDao.getById(visitId));
+            prescriptionDao.edit(prescriptionEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -75,10 +75,10 @@ public class PrescriptionBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        prescriptionDaoImp.removeById(id);
+        prescriptionDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        prescriptionDaoImp.removeAll();
+        prescriptionDao.removeAll();
     }
 }

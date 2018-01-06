@@ -2,7 +2,7 @@ package biz;
 
 import biz.dto.DrugDto;
 import converter.MainConverter;
-import dal.dao.DrugDaoImp;
+import dal.dao.DrugDao;
 import dal.entities.DrugEntity;
 import validation.DrugValidator;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class DrugBiz {
 
     @Inject
-    private DrugDaoImp drugDaoImp;
+    private DrugDao drugDao;
 
     @Inject
     private DrugValidator drugValidator;
@@ -25,7 +25,7 @@ public class DrugBiz {
     private MainConverter converter;
 
     public List<DrugDto> getAll() throws SQLException, ValidationException {
-        List<DrugDto> drugDtoList = converter.getList(drugDaoImp.getAll(), DrugDto.class);
+        List<DrugDto> drugDtoList = converter.getList(drugDao.getAll(), DrugDto.class);
         List<String> validationResult = drugValidator.listDtoValidation(drugDtoList);
         if (validationResult.size() == 0)
             return drugDtoList;
@@ -34,7 +34,7 @@ public class DrugBiz {
     }
 
     public DrugDto getById(Long id) throws SQLException, ValidationException {
-        DrugDto drugDto = (DrugDto) converter.getObject(drugDaoImp.getById(id), DrugDto.class);
+        DrugDto drugDto = (DrugDto) converter.getObject(drugDao.getById(id), DrugDto.class);
         List<String> validationResult = drugValidator.dtoValidation(drugDto);
         if (validationResult.size()==0)
             return drugDto;
@@ -47,7 +47,7 @@ public class DrugBiz {
         if (validationResult.size() == 0) {
             drugDto.setId(null);
             DrugEntity drugEntity = (DrugEntity) converter.getObject(drugDto, DrugEntity.class);
-            drugDaoImp.Add(drugEntity);
+            drugDao.Add(drugEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -57,7 +57,7 @@ public class DrugBiz {
         List<String> validationResult = drugValidator.dtoValidation(drugDto);
         if (validationResult.size() == 0) {
             DrugEntity drugEntity = (DrugEntity) converter.getObject(drugDto, DrugEntity.class);
-            drugDaoImp.edit(drugEntity);
+            drugDao.edit(drugEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -66,10 +66,10 @@ public class DrugBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        drugDaoImp.removeById(id);
+        drugDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        drugDaoImp.removeAll();
+        drugDao.removeAll();
     }
 }

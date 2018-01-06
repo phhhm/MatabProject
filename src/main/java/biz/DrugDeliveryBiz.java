@@ -2,9 +2,9 @@ package biz;
 
 import biz.dto.DrugDeliveryDto;
 import converter.MainConverter;
-import dal.dao.DrugDeliveryDaoImp;
-import dal.dao.EmployeeDaoImp;
-import dal.dao.TransactionDaoImp;
+import dal.dao.DrugDeliveryDao;
+import dal.dao.EmployeeDao;
+import dal.dao.TransactionDao;
 import dal.entities.DrugDeliveryEntity;
 import validation.DrugDeliveryValidator;
 
@@ -18,13 +18,13 @@ import java.util.List;
 public class DrugDeliveryBiz {
 
     @Inject
-    private DrugDeliveryDaoImp drugDeliveryDaoImp;
+    private DrugDeliveryDao drugDeliveryDao;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
-    private TransactionDaoImp transactionDaoImp;
+    private TransactionDao transactionDao;
 
     @Inject
     private DrugDeliveryValidator drugDeliveryValidator;
@@ -33,7 +33,7 @@ public class DrugDeliveryBiz {
     private MainConverter converter;
 
     public List<DrugDeliveryDto> getAll() throws SQLException, ValidationException {
-        List<DrugDeliveryDto> drugDeliveryDtoList = converter.getList(drugDeliveryDaoImp.getAll(), DrugDeliveryDto.class);
+        List<DrugDeliveryDto> drugDeliveryDtoList = converter.getList(drugDeliveryDao.getAll(), DrugDeliveryDto.class);
         List<String> validationResult = drugDeliveryValidator.listDtoValidation(drugDeliveryDtoList);
         if (validationResult.size() == 0)
             return drugDeliveryDtoList;
@@ -42,7 +42,7 @@ public class DrugDeliveryBiz {
     }
 
     public DrugDeliveryDto getById(Long id) throws SQLException, ValidationException {
-        DrugDeliveryDto drugDeliveryDto = (DrugDeliveryDto) converter.getObject(drugDeliveryDaoImp.getById(id), DrugDeliveryDto.class);
+        DrugDeliveryDto drugDeliveryDto = (DrugDeliveryDto) converter.getObject(drugDeliveryDao.getById(id), DrugDeliveryDto.class);
         List<String> validationResult = drugDeliveryValidator.dtoValidation(drugDeliveryDto);
         if (validationResult.size()==0)
             return drugDeliveryDto;
@@ -57,9 +57,9 @@ public class DrugDeliveryBiz {
             Long transactionId = drugDeliveryDto.getTransactionId();
             drugDeliveryDto.setId(null);
             DrugDeliveryEntity drugDeliveryEntity = (DrugDeliveryEntity) converter.getObject(drugDeliveryDto, DrugDeliveryEntity.class);
-            drugDeliveryEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
-            drugDeliveryEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            drugDeliveryDaoImp.Add(drugDeliveryEntity);
+            drugDeliveryEntity.setTransactionEntity(transactionDao.getById(transactionId));
+            drugDeliveryEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            drugDeliveryDao.Add(drugDeliveryEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -71,9 +71,9 @@ public class DrugDeliveryBiz {
             Long transactionId = drugDeliveryDto.getTransactionId();
             Long employeeId = drugDeliveryDto.getEmployeeId();
             DrugDeliveryEntity drugDeliveryEntity = (DrugDeliveryEntity) converter.getObject(drugDeliveryDto, DrugDeliveryEntity.class);
-            drugDeliveryEntity.setTransactionEntity(transactionDaoImp.getById(transactionId));
-            drugDeliveryEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            drugDeliveryDaoImp.edit(drugDeliveryEntity);
+            drugDeliveryEntity.setTransactionEntity(transactionDao.getById(transactionId));
+            drugDeliveryEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            drugDeliveryDao.edit(drugDeliveryEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -82,10 +82,10 @@ public class DrugDeliveryBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        drugDeliveryDaoImp.removeById(id);
+        drugDeliveryDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        drugDeliveryDaoImp.removeAll();
+        drugDeliveryDao.removeAll();
     }
 }

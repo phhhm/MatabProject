@@ -2,10 +2,9 @@ package biz;
 
 import biz.dto.DismissDto;
 import converter.MainConverter;
-import dal.dao.DismissDaoImp;
-import dal.dao.EmployeeDaoImp;
+import dal.dao.DismissDao;
+import dal.dao.EmployeeDao;
 import dal.entities.DismissEntity;
-import dal.entities.EmployeeEntity;
 import validation.DismissValidator;
 
 import javax.ejb.EJB;
@@ -21,10 +20,10 @@ import java.util.List;
 public class DismissBiz {
 
     @Inject
-    private DismissDaoImp dismissDaoImp;
+    private DismissDao dismissDao;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
     private DismissValidator dismissValidator;
@@ -33,7 +32,7 @@ public class DismissBiz {
     private MainConverter converter;
 
     public List<DismissDto> getAll() throws SQLException, ValidationException {
-        List<DismissDto> dismissDtoList = converter.getList(dismissDaoImp.getAll(), DismissDto.class);
+        List<DismissDto> dismissDtoList = converter.getList(dismissDao.getAll(), DismissDto.class);
         List<String> validationResult = dismissValidator.listDtoValidation(dismissDtoList);
         if (validationResult.size() == 0)
             return dismissDtoList;
@@ -42,7 +41,7 @@ public class DismissBiz {
     }
 
     public DismissDto getById(Long id) throws SQLException, ValidationException {
-        DismissDto dismissDto = (DismissDto) converter.getObject(dismissDaoImp.getById(id), DismissDto.class);
+        DismissDto dismissDto = (DismissDto) converter.getObject(dismissDao.getById(id), DismissDto.class);
         List<String> validationResult = dismissValidator.dtoValidation(dismissDto);
         if (validationResult.size()==0)
             return dismissDto;
@@ -56,8 +55,8 @@ public class DismissBiz {
             Long employeeId = dismissDto.getEmployeeId();
             dismissDto.setId(null);
             DismissEntity dismissEntity = (DismissEntity) converter.getObject(dismissDto, DismissEntity.class);
-            dismissEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            dismissDaoImp.Add(dismissEntity);
+            dismissEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            dismissDao.Add(dismissEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -68,8 +67,8 @@ public class DismissBiz {
         if (validationResult.size() == 0) {
             Long employeeId = dismissDto.getEmployeeId();
             DismissEntity dismissEntity = (DismissEntity) converter.getObject(dismissDto, DismissEntity.class);
-            dismissEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            dismissDaoImp.edit(dismissEntity);
+            dismissEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            dismissDao.edit(dismissEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -78,10 +77,10 @@ public class DismissBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        dismissDaoImp.removeById(id);
+        dismissDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        dismissDaoImp.removeAll();
+        dismissDao.removeAll();
     }
 }

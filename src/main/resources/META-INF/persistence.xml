@@ -25,6 +25,7 @@
         <class>dal.entities.DrugEntity</class>
         <class>dal.entities.DrugDeliveryEntity</class>
         <class>dal.entities.PrescriptionDrugEntity</class>
+        <class>dal.entities.UserEntity</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

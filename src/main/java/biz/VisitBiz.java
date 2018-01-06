@@ -2,9 +2,9 @@ package biz;
 
 import biz.dto.VisitDto;
 import converter.MainConverter;
-import dal.dao.EmployeeDaoImp;
-import dal.dao.FileDaoImp;
-import dal.dao.VisitDaoImp;
+import dal.dao.EmployeeDao;
+import dal.dao.FileDao;
+import dal.dao.VisitDao;
 import dal.entities.VisitEntity;
 import validation.VisitValidator;
 
@@ -19,13 +19,13 @@ public class VisitBiz {
 
 
     @Inject
-    private VisitDaoImp visitDaoImp;
+    private VisitDao visitDao;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
-    private FileDaoImp fileDaoImp;
+    private FileDao fileDao;
 
     @Inject
     private VisitValidator visitValidator;
@@ -34,7 +34,7 @@ public class VisitBiz {
     private MainConverter converter;
 
     public List<VisitDto> getAll() throws SQLException, ValidationException {
-        List<VisitDto> visitDtoList = converter.getList(visitDaoImp.getAll(), VisitDto.class);
+        List<VisitDto> visitDtoList = converter.getList(visitDao.getAll(), VisitDto.class);
         List<String> validationResult = visitValidator.listDtoValidation(visitDtoList);
         if (validationResult.size() == 0)
             return visitDtoList;
@@ -43,7 +43,7 @@ public class VisitBiz {
     }
 
     public VisitDto getById(Long id) throws SQLException, ValidationException {
-        VisitDto visitDto = (VisitDto) converter.getObject(visitDaoImp.getById(id), VisitDto.class);
+        VisitDto visitDto = (VisitDto) converter.getObject(visitDao.getById(id), VisitDto.class);
         List<String> validationResult = visitValidator.dtoValidation(visitDto);
         if (validationResult.size()==0)
             return visitDto;
@@ -58,9 +58,9 @@ public class VisitBiz {
             Long employeeId = visitDto.getEmployeeId();
             visitDto.setId(null);
             VisitEntity visitEntity = (VisitEntity) converter.getObject(visitDto, VisitEntity.class);
-            visitEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            visitEntity.setFileEntity(fileDaoImp.getById(fileId));
-            visitDaoImp.Add(visitEntity);
+            visitEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            visitEntity.setFileEntity(fileDao.getById(fileId));
+            visitDao.Add(visitEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -72,9 +72,9 @@ public class VisitBiz {
             Long fileId = visitDto.getFileId();
             Long employeeId = visitDto.getEmployeeId();
             VisitEntity visitEntity = (VisitEntity) converter.getObject(visitDto, VisitEntity.class);
-            visitEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            visitEntity.setFileEntity(fileDaoImp.getById(fileId));
-            visitDaoImp.edit(visitEntity);
+            visitEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            visitEntity.setFileEntity(fileDao.getById(fileId));
+            visitDao.edit(visitEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -83,10 +83,10 @@ public class VisitBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        visitDaoImp.removeById(id);
+        visitDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        visitDaoImp.removeAll();
+        visitDao.removeAll();
     }
 }

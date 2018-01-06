@@ -44,6 +44,7 @@ public class AbstractDaoImp<E> implements DaoInterface<E> {
         daoToEntityMap.put(DrugDaoImp.class, DrugEntity.class);
         daoToEntityMap.put(DrugDeliveryDaoImp.class, DrugDeliveryEntity.class);
         daoToEntityMap.put(VisitDaoImp.class, VisitEntity.class);
+        daoToEntityMap.put(UserDaoImp.class, UserEntity.class);
     }
 
     protected String getEntityClassName() {

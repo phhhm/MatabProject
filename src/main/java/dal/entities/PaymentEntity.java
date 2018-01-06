@@ -15,31 +15,30 @@ public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false )
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(10000)
     private Long mainPayment;
 
-    @Column(nullable = true)
+    @Column
     @Min(10000)
     private Long bime;
 
-    @Column(nullable = true)
+    @Column
     @Min(1000)
     private Long kasri;
 
-    @Column(nullable = true)
+    @Column
     @Min(1000)
     private Long sanavat;
 
-    @Column(nullable = true)
+    @Column
     @Min(1000)
     private Integer maliat;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employeeEntity;
 

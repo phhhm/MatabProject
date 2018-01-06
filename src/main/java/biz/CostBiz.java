@@ -2,8 +2,8 @@ package biz;
 
 import biz.dto.CostDto;
 import converter.MainConverter;
-import dal.dao.CostDaoImp;
-import dal.dao.DrugDaoImp;
+import dal.dao.CostDao;
+import dal.dao.DrugDao;
 import dal.entities.CostEntity;
 import validation.CostValidator;
 
@@ -17,10 +17,10 @@ import java.util.List;
 public class CostBiz {
 
     @Inject
-    private CostDaoImp costDaoImp;
+    private CostDao costDao;
 
     @Inject
-    private DrugDaoImp drugDaoImp;
+    private DrugDao drugDao;
 
     @Inject
     private CostValidator costValidator;
@@ -29,7 +29,7 @@ public class CostBiz {
     private MainConverter converter;
 
     public List<CostDto> getAll() throws SQLException, ValidationException {
-            List<CostDto> costDtoList = converter.getList(costDaoImp.getAll(), CostDto.class);
+            List<CostDto> costDtoList = converter.getList(costDao.getAll(), CostDto.class);
         List<String> validationResult = costValidator.listDtoValidation(costDtoList);
         if (validationResult.size() == 0)
             return costDtoList;
@@ -38,7 +38,7 @@ public class CostBiz {
     }
 
     public CostDto getById(Long id) throws SQLException, ValidationException {
-        CostDto costDto = (CostDto) converter.getObject(costDaoImp.getById(id), CostDto.class);
+        CostDto costDto = (CostDto) converter.getObject(costDao.getById(id), CostDto.class);
         List<String> validationResult = costValidator.dtoValidation(costDto);
         if (validationResult.size()==0)
             return costDto;
@@ -52,8 +52,8 @@ public class CostBiz {
             Long drugId = costDto.getDrugId();
             costDto.setId(null);
             CostEntity costEntity = (CostEntity) converter.getObject(costDto, CostEntity.class);
-            costEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            costDaoImp.Add(costEntity);
+            costEntity.setDrugEntity(drugDao.getById(drugId));
+            costDao.Add(costEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -64,8 +64,8 @@ public class CostBiz {
         if (validationResult.size() == 0) {
             Long drugId = costDto.getDrugId();
             CostEntity costEntity = (CostEntity) converter.getObject(costDto, CostEntity.class);
-            costEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            costDaoImp.edit(costEntity);
+            costEntity.setDrugEntity(drugDao.getById(drugId));
+            costDao.edit(costEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -74,10 +74,10 @@ public class CostBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        costDaoImp.removeById(id);
+        costDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        costDaoImp.removeAll();
+        costDao.removeAll();
     }
 }

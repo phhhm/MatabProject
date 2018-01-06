@@ -2,7 +2,7 @@ package biz;
 
 import biz.dto.EmployeeDto;
 import converter.MainConverter;
-import dal.dao.EmployeeDaoImp;
+import dal.dao.EmployeeDao;
 import dal.entities.EmployeeEntity;
 import validation.EmployeeValidator;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class EmployeeBiz {
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
     private EmployeeValidator employeeValidator;
@@ -28,7 +28,7 @@ public class EmployeeBiz {
     private MainConverter converter;
 
     public List<EmployeeDto> getAll() throws SQLException, ValidationException {
-        List<EmployeeDto> employeeDtoList = converter.getList(employeeDaoImp.getAll(), EmployeeDto.class);
+        List<EmployeeDto> employeeDtoList = converter.getList(employeeDao.getAll(), EmployeeDto.class);
         List<String> validationResult = employeeValidator.listDtoValidation(employeeDtoList);
         if (validationResult.size() == 0)
             return employeeDtoList;
@@ -37,7 +37,7 @@ public class EmployeeBiz {
     }
 
     public EmployeeDto getById(Long id) throws SQLException, ValidationException {
-        EmployeeDto employeeDto = (EmployeeDto) converter.getObject(employeeDaoImp.getById(id), EmployeeDto.class);
+        EmployeeDto employeeDto = (EmployeeDto) converter.getObject(employeeDao.getById(id), EmployeeDto.class);
         List<String> validationResult = employeeValidator.dtoValidation(employeeDto);
         if (validationResult.size()==0)
             return employeeDto;
@@ -50,7 +50,7 @@ public class EmployeeBiz {
         if (validationResult.size() == 0) {
             employeeDto.setId(null);
             EmployeeEntity employeeEntity = (EmployeeEntity) converter.getObject(employeeDto, EmployeeEntity.class);
-            employeeDaoImp.Add(employeeEntity);
+            employeeDao.Add(employeeEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -60,7 +60,7 @@ public class EmployeeBiz {
         List<String> validationResult = employeeValidator.dtoValidation(employeeDto);
         if (validationResult.size() == 0) {
             EmployeeEntity employeeEntity = (EmployeeEntity) converter.getObject(employeeDto, EmployeeEntity.class);
-            employeeDaoImp.edit(employeeEntity);
+            employeeDao.edit(employeeEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -69,10 +69,10 @@ public class EmployeeBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        employeeDaoImp.removeById(id);
+        employeeDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        employeeDaoImp.removeAll();
+        employeeDao.removeAll();
     }
 }

@@ -2,8 +2,8 @@ package biz;
 
 import biz.dto.PaymentDto;
 import converter.MainConverter;
-import dal.dao.EmployeeDaoImp;
-import dal.dao.PaymentDaoImp;
+import dal.dao.EmployeeDao;
+import dal.dao.PaymentDao;
 import dal.entities.PaymentEntity;
 import validation.PaymentValidator;
 
@@ -20,10 +20,10 @@ import java.util.List;
 public class PaymentBiz {
 
     @Inject
-    private PaymentDaoImp paymentDaoImp;
+    private PaymentDao paymentDao;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
     private PaymentValidator paymentValidator;
@@ -32,7 +32,7 @@ public class PaymentBiz {
     private MainConverter converter;
 
     public List<PaymentDto> getAll() throws SQLException, ValidationException {
-        List<PaymentDto> paymentDtoList = converter.getList(paymentDaoImp.getAll(), PaymentDto.class);
+        List<PaymentDto> paymentDtoList = converter.getList(paymentDao.getAll(), PaymentDto.class);
         List<String> validationResult = paymentValidator.listDtoValidation(paymentDtoList);
         if (validationResult.size() == 0)
             return paymentDtoList;
@@ -41,7 +41,7 @@ public class PaymentBiz {
     }
 
     public PaymentDto getById(Long id) throws SQLException, ValidationException {
-        PaymentDto paymentDto = (PaymentDto) converter.getObject(paymentDaoImp.getById(id), PaymentDto.class);
+        PaymentDto paymentDto = (PaymentDto) converter.getObject(paymentDao.getById(id), PaymentDto.class);
         List<String> validationResult = paymentValidator.dtoValidation(paymentDto);
         if (validationResult.size()==0)
             return paymentDto;
@@ -55,8 +55,8 @@ public class PaymentBiz {
             Long employeeId = paymentDto.getEmployeeId();
             paymentDto.setId(null);
             PaymentEntity paymentEntity = (PaymentEntity) converter.getObject(paymentDto, PaymentEntity.class);
-            paymentEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            paymentDaoImp.Add(paymentEntity);
+            paymentEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            paymentDao.Add(paymentEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -67,8 +67,8 @@ public class PaymentBiz {
         if (validationResult.size() == 0) {
             Long employeeId = paymentDto.getEmployeeId();
             PaymentEntity paymentEntity = (PaymentEntity) converter.getObject(paymentDto, PaymentEntity.class);
-            paymentEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            paymentDaoImp.edit(paymentEntity);
+            paymentEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            paymentDao.edit(paymentEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -77,10 +77,10 @@ public class PaymentBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        paymentDaoImp.removeById(id);
+        paymentDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        paymentDaoImp.removeAll();
+        paymentDao.removeAll();
     }
 }

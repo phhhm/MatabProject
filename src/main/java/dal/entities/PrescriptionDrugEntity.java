@@ -11,19 +11,18 @@ public class PrescriptionDrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(1)
     private Integer consumableDose;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drug_id", nullable = false)
     private DrugEntity drugEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prescription_id", nullable = false)
     private PrescriptionEntity prescriptionEntity;
 

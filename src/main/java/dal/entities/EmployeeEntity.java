@@ -17,18 +17,17 @@ public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 15)
+    @Size(min= 3, max= 15)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 20)
+    @Size(min= 3, max= 20)
     private String lastName;
 
     @Column
@@ -39,41 +38,40 @@ public class EmployeeEntity {
     @NotNull
     private Long ucode;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(1000000)
     private Long phoneNumber;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Long employeeCode;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 10, integer = 40)
+    @Size(min= 10, max= 40)
     private String homeAddress;
 
     @Column
     @NotNull
-    @Digits(fraction = 3, integer = 20)
+    @Size(min= 3, max= 20)
     private String degree;
 
     @Column
     @NotNull
-    @Digits(fraction = 5, integer = 30)
+    @Size(min= 5, max= 30)
     private String ability;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private String employeeType;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Integer remainMorekhasi;
 
     @Column
     @NotNull
-    @Pattern(regexp = "[a-z]+www+.+[a-z]+.+", message = "invalid url")
     private String imageUrl;
 
     @OneToMany( mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

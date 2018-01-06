@@ -11,26 +11,25 @@ public class ContractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long mablagh;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long startContractTime;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long endContractTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 

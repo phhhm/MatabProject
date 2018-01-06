@@ -2,9 +2,9 @@ package biz;
 
 import biz.dto.PartialStorageDto;
 import converter.MainConverter;
-import dal.dao.DrugDaoImp;
-import dal.dao.DrugDeliveryDaoImp;
-import dal.dao.PartialStorageDaoImp;
+import dal.dao.DrugDao;
+import dal.dao.DrugDeliveryDao;
+import dal.dao.PartialStorageDao;
 import dal.entities.PartialStorageEntity;
 import validation.PartialStorageValidator;
 
@@ -18,13 +18,13 @@ import java.util.List;
 public class PartialStorageBiz {
 
     @Inject
-    private PartialStorageDaoImp partialStorageDaoImp;
+    private PartialStorageDao partialStorageDao;
 
     @Inject
-    private DrugDaoImp drugDaoImp;
+    private DrugDao drugDao;
 
     @Inject
-    private DrugDeliveryDaoImp drugDeliveryDaoImp;
+    private DrugDeliveryDao drugDeliveryDao;
 
     @Inject
     private PartialStorageValidator partialStorageValidator;
@@ -33,7 +33,7 @@ public class PartialStorageBiz {
     private MainConverter converter;
 
     public List<PartialStorageDto> getAll() throws SQLException, ValidationException {
-        List<PartialStorageDto> partialStorageDtoList = converter.getList(partialStorageDaoImp.getAll(), PartialStorageDto.class);
+        List<PartialStorageDto> partialStorageDtoList = converter.getList(partialStorageDao.getAll(), PartialStorageDto.class);
         List<String> validationResult = partialStorageValidator.listDtoValidation(partialStorageDtoList);
         if (validationResult.size() == 0)
             return partialStorageDtoList;
@@ -42,7 +42,7 @@ public class PartialStorageBiz {
     }
 
     public PartialStorageDto getById(Long id) throws SQLException, ValidationException {
-        PartialStorageDto partialStorageDto = (PartialStorageDto) converter.getObject(partialStorageDaoImp.getById(id), PartialStorageDto.class);
+        PartialStorageDto partialStorageDto = (PartialStorageDto) converter.getObject(partialStorageDao.getById(id), PartialStorageDto.class);
         List<String> validationResult = partialStorageValidator.dtoValidation(partialStorageDto);
         if (validationResult.size()==0)
             return partialStorageDto;
@@ -57,9 +57,9 @@ public class PartialStorageBiz {
             Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
             partialStorageDto.setId(null);
             PartialStorageEntity partialStorageEntity = (PartialStorageEntity) converter.getObject(partialStorageDto, PartialStorageEntity.class);
-            partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
-            partialStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            partialStorageDaoImp.Add(partialStorageEntity);
+            partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDao.getById(drugDeliveryId));
+            partialStorageEntity.setDrugEntity(drugDao.getById(drugId));
+            partialStorageDao.Add(partialStorageEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -71,9 +71,9 @@ public class PartialStorageBiz {
             Long drugDeliveryId = partialStorageDto.getDrugDeliveryId();
             Long drugId = partialStorageDto.getDrugId();
             PartialStorageEntity partialStorageEntity = (PartialStorageEntity) converter.getObject(partialStorageDto, PartialStorageEntity.class);
-            partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDaoImp.getById(drugDeliveryId));
-            partialStorageEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            partialStorageDaoImp.edit(partialStorageEntity);
+            partialStorageEntity.setDrugDeliveryEntity(drugDeliveryDao.getById(drugDeliveryId));
+            partialStorageEntity.setDrugEntity(drugDao.getById(drugId));
+            partialStorageDao.edit(partialStorageEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -82,10 +82,10 @@ public class PartialStorageBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        partialStorageDaoImp.removeById(id);
+        partialStorageDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        partialStorageDaoImp.removeAll();
+        partialStorageDao.removeAll();
     }
 }

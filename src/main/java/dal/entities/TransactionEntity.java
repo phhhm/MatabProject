@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by parham on 27/10/2017.
@@ -15,29 +16,28 @@ public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long date;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100)
     private Long mablagh;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 20)
+    @Size(min= 3, max= 20)
     private String type;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Long transactionSourceId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "payment_id", nullable = false)
     private PaymentEntity paymentEntity;
 

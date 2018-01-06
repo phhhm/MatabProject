@@ -2,10 +2,9 @@ package biz;
 
 import biz.dto.ContractDto;
 import converter.MainConverter;
-import dal.dao.ContractDaoImp;
-import dal.dao.EmployeeDaoImp;
+import dal.dao.ContractDao;
+import dal.dao.EmployeeDao;
 import dal.entities.ContractEntity;
-import dal.entities.EmployeeEntity;
 import validation.ContractValidator;
 
 import javax.ejb.EJB;
@@ -21,10 +20,10 @@ import java.util.List;
 public class ContractBiz {
 
     @Inject
-    private ContractDaoImp contractDaoImp;
+    private ContractDao contractDao;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
     private ContractValidator contractValidator;
@@ -33,7 +32,7 @@ public class ContractBiz {
     private MainConverter converter;
 
     public List<ContractDto> getAll() throws SQLException, ValidationException {
-        List<ContractDto> contractDtoList = converter.getList(contractDaoImp.getAll(), ContractDto.class);
+        List<ContractDto> contractDtoList = converter.getList(contractDao.getAll(), ContractDto.class);
         List<String> validationResult = contractValidator.listDtoValidation(contractDtoList);
         if (validationResult.size() == 0)
             return contractDtoList;
@@ -42,7 +41,7 @@ public class ContractBiz {
     }
 
     public ContractDto getById(Long id) throws SQLException, ValidationException {
-        ContractDto contractDto = (ContractDto) converter.getObject(contractDaoImp.getById(id), ContractDto.class);
+        ContractDto contractDto = (ContractDto) converter.getObject(contractDao.getById(id), ContractDto.class);
         List<String> validationResult = contractValidator.dtoValidation(contractDto);
         if (validationResult.size()==0)
             return contractDto;
@@ -56,8 +55,8 @@ public class ContractBiz {
             Long employeeId = contractDto.getEmployeeId();
             contractDto.setId(null);
             ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
-            contractEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            contractDaoImp.Add(contractEntity);
+            contractEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            contractDao.Add(contractEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -68,8 +67,8 @@ public class ContractBiz {
         if (validationResult.size() == 0) {
             Long employeeId = contractDto.getEmployeeId();
             ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
-            contractEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
-            contractDaoImp.edit(contractEntity);
+            contractEntity.setEmployeeEntity(employeeDao.getById(employeeId));
+            contractDao.edit(contractEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -78,10 +77,10 @@ public class ContractBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        contractDaoImp.removeById(id);
+        contractDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        contractDaoImp.removeAll();
+        contractDao.removeAll();
     }
 }

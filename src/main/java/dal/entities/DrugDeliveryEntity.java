@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,33 +14,31 @@ public class DrugDeliveryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 10)
+    @Size(min= 3, max= 10)
     private String sourceType;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(integer = 2 , fraction = 1)
     @Max(20)
     private Integer useDuration;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Long deliveryDate;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private Long sourceId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id", nullable = false)
     private TransactionEntity transactionEntity;
 

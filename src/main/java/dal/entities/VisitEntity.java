@@ -11,24 +11,23 @@ public class VisitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long visitDate;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long nextVisitDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "file_id", nullable = false)
     private FileEntity fileEntity;
 

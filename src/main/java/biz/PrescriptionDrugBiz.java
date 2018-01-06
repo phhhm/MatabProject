@@ -2,9 +2,9 @@ package biz;
 
 import biz.dto.PrescriptionDrugDto;
 import converter.MainConverter;
-import dal.dao.DrugDaoImp;
-import dal.dao.PrescriptionDaoImp;
-import dal.dao.PrescriptionDrugDaoImp;
+import dal.dao.DrugDao;
+import dal.dao.PrescriptionDao;
+import dal.dao.PrescriptionDrugDao;
 import dal.entities.PrescriptionDrugEntity;
 import validation.PrescriptionDrugValidator;
 
@@ -18,13 +18,13 @@ import java.util.List;
 public class PrescriptionDrugBiz {
 
     @Inject
-    private PrescriptionDrugDaoImp prescriptionDrugDaoImp;
+    private PrescriptionDrugDao prescriptionDrugDao;
 
     @Inject
-    private DrugDaoImp drugDaoImp;
+    private DrugDao drugDao;
 
     @Inject
-    private PrescriptionDaoImp prescriptionDaoImp;
+    private PrescriptionDao prescriptionDao;
 
     @Inject
     private PrescriptionDrugValidator prescriptionDrugValidator;
@@ -33,7 +33,7 @@ public class PrescriptionDrugBiz {
     private MainConverter converter;
 
     public List<PrescriptionDrugDto> getAll() throws SQLException, ValidationException {
-        List<PrescriptionDrugDto> prescriptionDrugDtoList = converter.getList(prescriptionDrugDaoImp.getAll(), PrescriptionDrugDto.class);
+        List<PrescriptionDrugDto> prescriptionDrugDtoList = converter.getList(prescriptionDrugDao.getAll(), PrescriptionDrugDto.class);
         List<String> validationResult = prescriptionDrugValidator.listDtoValidation(prescriptionDrugDtoList);
         if (validationResult.size() == 0)
             return prescriptionDrugDtoList;
@@ -42,7 +42,7 @@ public class PrescriptionDrugBiz {
     }
 
     public PrescriptionDrugDto getById(Long id) throws SQLException, ValidationException {
-        PrescriptionDrugDto prescriptionDrugDto = (PrescriptionDrugDto) converter.getObject(prescriptionDrugDaoImp.getById(id), PrescriptionDrugDto.class);
+        PrescriptionDrugDto prescriptionDrugDto = (PrescriptionDrugDto) converter.getObject(prescriptionDrugDao.getById(id), PrescriptionDrugDto.class);
         List<String> validationResult = prescriptionDrugValidator.dtoValidation(prescriptionDrugDto);
         if (validationResult.size()==0)
             return prescriptionDrugDto;
@@ -57,9 +57,9 @@ public class PrescriptionDrugBiz {
             Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
             prescriptionDrugDto.setId(null);
             PrescriptionDrugEntity prescriptionDrugEntity = (PrescriptionDrugEntity) converter.getObject(prescriptionDrugDto, PrescriptionDrugEntity.class);
-            prescriptionDrugEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            prescriptionDrugEntity.setPrescriptionEntity(prescriptionDaoImp.getById(prescriptionId));
-            prescriptionDrugDaoImp.Add(prescriptionDrugEntity);
+            prescriptionDrugEntity.setDrugEntity(drugDao.getById(drugId));
+            prescriptionDrugEntity.setPrescriptionEntity(prescriptionDao.getById(prescriptionId));
+            prescriptionDrugDao.Add(prescriptionDrugEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }
@@ -71,9 +71,9 @@ public class PrescriptionDrugBiz {
             Long drugId = prescriptionDrugDto.getDrugId();
             Long prescriptionId = prescriptionDrugDto.getPrescriptionId();
             PrescriptionDrugEntity prescriptionDrugEntity = (PrescriptionDrugEntity) converter.getObject(prescriptionDrugDto, PrescriptionDrugEntity.class);
-            prescriptionDrugEntity.setDrugEntity(drugDaoImp.getById(drugId));
-            prescriptionDrugEntity.setPrescriptionEntity(prescriptionDaoImp.getById(prescriptionId));
-            prescriptionDrugDaoImp.edit(prescriptionDrugEntity);
+            prescriptionDrugEntity.setDrugEntity(drugDao.getById(drugId));
+            prescriptionDrugEntity.setPrescriptionEntity(prescriptionDao.getById(prescriptionId));
+            prescriptionDrugDao.edit(prescriptionDrugEntity);
         }
         else
             throw new ValidationException(String.join(",", validationResult));
@@ -82,10 +82,10 @@ public class PrescriptionDrugBiz {
     public void remove(Long id) throws SQLException, ValidationException {
         if (id == null)
             throw new ValidationException();
-        prescriptionDrugDaoImp.removeById(id);
+        prescriptionDrugDao.removeById(id);
     }
 
     public void removeAll() throws SQLException {
-        prescriptionDrugDaoImp.removeAll();
+        prescriptionDrugDao.removeAll();
     }
 }

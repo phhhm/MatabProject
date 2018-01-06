@@ -2,10 +2,7 @@ package dal.entities;
 
 import javax.enterprise.inject.Default;
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -18,41 +15,40 @@ public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(1)
     private Long fileCode;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 20)
+    @Size(min= 3, max= 20)
     private String consumableDrugs;
 
-    @Column(nullable = true)
+    @Column
     @Min(10000)
     private Long endDate;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(10000)
     private Long startDate;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 5, integer = 50)
+    @Size(min= 5, max= 50)
     private String description;
 
     @OneToMany(mappedBy = "fileEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VisitEntity> visitEntiyList;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientEntity patientEntity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id")
     private TransactionEntity transactionEntity;
 

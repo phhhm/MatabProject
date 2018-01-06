@@ -3,6 +3,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by parham on 27/10/2017.
@@ -14,25 +15,24 @@ public class PresentTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long startTime;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long endTime;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 4, integer = 8)
+    @Size(min= 4, max= 8)
     private String weekDay;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 

@@ -11,20 +11,19 @@ public class CostEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(nullable = false)
-        @NotNull
         private Long id;
 
-        @Column(nullable = false)
+        @Column
         @NotNull
         @Min(100)
         private Long sell;
 
-        @Column(nullable = false)
+        @Column
         @NotNull
         @Min(100)
         private Long buy;
 
-        @Column(nullable = false)
+        @Column
         @NotNull
         @Min(100000)
         private Long date;

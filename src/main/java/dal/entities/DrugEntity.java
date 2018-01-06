@@ -3,6 +3,7 @@ package dal.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -12,19 +13,18 @@ public class DrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(integer = 15, fraction = 3)
+    @Size(max = 15, min = 3)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private String unitType;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     private String totalInventory;
 

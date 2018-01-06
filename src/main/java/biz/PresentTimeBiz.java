@@ -2,8 +2,8 @@ package biz;
 
 import biz.dto.PresentTimeDto;
 import converter.MainConverter;
-import dal.dao.EmployeeDaoImp;
-import dal.dao.PresentTimeDaoImp;
+import dal.dao.EmployeeDao;
+import dal.dao.PresentTimeDao;
 import dal.entities.PresentTimeEntity;
 import validation.PresentTimeValidator;
 
@@ -20,10 +20,10 @@ import java.util.List;
 public class PresentTimeBiz {
 
     @Inject
-    private PresentTimeDaoImp presentTimeDaoImp;
+    private PresentTimeDao presentTimeDaoImp;
 
     @Inject
-    private EmployeeDaoImp employeeDaoImp;
+    private EmployeeDao employeeDao;
 
     @Inject
     private PresentTimeValidator presentTimeValidator;
@@ -55,7 +55,7 @@ public class PresentTimeBiz {
             Long employeeId = presentTimeDto.getEmployeeId();
             presentTimeDto.setId(null);
             PresentTimeEntity presentTimeEntity = (PresentTimeEntity) converter.getObject(presentTimeDto, PresentTimeEntity.class);
-            presentTimeEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
+            presentTimeEntity.setEmployeeEntity(employeeDao.getById(employeeId));
             presentTimeDaoImp.Add(presentTimeEntity);
         }else {
             throw new ValidationException(String.join(",", validationResult));
@@ -67,7 +67,7 @@ public class PresentTimeBiz {
         if (validationResult.size() == 0) {
             Long employeeId = presentTimeDto.getEmployeeId();
             PresentTimeEntity presentTimeEntity = (PresentTimeEntity) converter.getObject(presentTimeDto, PresentTimeEntity.class);
-            presentTimeEntity.setEmployeeEntity(employeeDaoImp.getById(employeeId));
+            presentTimeEntity.setEmployeeEntity(employeeDao.getById(employeeId));
             presentTimeDaoImp.edit(presentTimeEntity);
         }
         else

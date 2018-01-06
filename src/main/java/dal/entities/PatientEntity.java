@@ -1,10 +1,7 @@
 package dal.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.awt.*;
 import java.util.Date;
 
@@ -18,64 +15,61 @@ public class PatientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 15)
+    @Size(min= 3,max= 15)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 4, integer = 20)
+    @Size(min= 4, max= 20)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(1)
     private Long certificateCode;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(10000)
     private Long nationalCode;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 3, integer = 15)
+    @Size(min= 3, max= 15)
     private String fatherName;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 10, integer = 40)
+    @Size(min= 10, max= 40)
     private String homeAddress;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Digits(fraction = 6, integer = 15)
+    @Size(min= 6, max= 15)
     private Long phoneNumber;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
+    @Size(min = 2, max = 3)
     private String sex;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Pattern(regexp = "[a-z]+www+.+[a-z]+.+", message = "invalid url")
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Pattern(regexp = "[a-z]+www+.+[a-z]+.+", message = "invalid url")
     private String certificateImageUrl;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
-    @Pattern(regexp = "[a-z]+www+.+[a-z]+.+", message = "invalid url")
     private String nationalCardImageUrl;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long startDate;

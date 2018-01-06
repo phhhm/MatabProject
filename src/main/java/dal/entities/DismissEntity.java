@@ -15,20 +15,19 @@ public class DismissEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    @NotNull
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long fromDate;
 
-    @Column(nullable = false)
+    @Column
     @NotNull
     @Min(100000)
     private Long untilDate;
 
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 
