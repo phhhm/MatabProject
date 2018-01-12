@@ -57,4 +57,6 @@ public class ValidationMessages {
     public static String transactionSourceIdEmpty = "فیلد منبع تراکنش نمیتواند خالی باشد";
     public static String nextVisitDateEmpty = "فیلد تاریخ ویزیت بعدی نمیتواند خالی باشد";
     public static String fieldIdEmpty = " فیلد پرونده نمیتواند خالی باشد";
+    public static String passwordEmpty = "فیلد پسورد نمیتواند خالی باشد";
+    public static String usernameEmpty = "فیلد یوزر نمیتواند خالی باشد";
 }
