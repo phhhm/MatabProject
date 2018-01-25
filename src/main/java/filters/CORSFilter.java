@@ -1,20 +1,31 @@
 package filters;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.ext.Provider;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Provider
-public class CORSFilter implements ContainerResponseFilter {
+/**
+ * Created by vahid on 5/12/17.
+ */
+@WebFilter(filterName = "cors")
+public class CORSFilter implements Filter {
 
-   public void filter(final ContainerRequestContext requestContext,
-                      final ContainerResponseContext cres) throws IOException {
-      cres.getHeaders().add("Access-Control-Allow-Origin", "*");
-      cres.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
-      //cres.getHeaders().add("Access-Control-Allow-Credentials", "true");
-      cres.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-   }
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
+        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:63342");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, HEAD, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-auth-token, "
+                + "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    public void destroy() {
+
+    }
 
 }

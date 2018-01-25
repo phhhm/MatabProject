@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 @WebFilter(filterName = "authenticationFilter", urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
@@ -37,21 +38,30 @@ public class AuthenticationFilter implements Filter {
         if (httpServletRequest.getPathInfo().trim().contains("user/login"))
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         else{
-            String userId = httpServletRequest.getHeader("user-id");
-            try {
-                UserEntity userEntity = userDao.getById(Long.parseLong(userId));
-                if (userEntity != null){
-                    filterChain.doFilter(httpServletRequest, httpServletResponse);
-                }else{
-                    PrintWriter writer = httpServletResponse.getWriter();
-                    writer.write("user authentication failed");
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                PrintWriter writer = httpServletResponse.getWriter();
-                writer.write("user authentication failed");
-            }
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+//            Enumeration<String> headers = httpServletRequest.getHeaders("Access-Control-Request-Headers");
+//            while (headers.hasMoreElements()){
+//                String header = headers.nextElement();
+//                System.out.println(header);
+////                if (header.trim().equals("user-id")){
+////
+////                }
+//            }
+//            String userId = httpServletRequest.getHeader("user-id");
+//            try {
+//                UserEntity userEntity = userDao.getById(Long.parseLong(userId));
+//                if (userEntity != null){
+//                    filterChain.doFilter(httpServletRequest, httpServletResponse);
+//                }else{
+//                    PrintWriter writer = httpServletResponse.getWriter();
+//                    writer.write("user authentication failed");
+//                }
+//
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                PrintWriter writer = httpServletResponse.getWriter();
+//                writer.write("user authentication failed");
+//            }
         }
 
     }
