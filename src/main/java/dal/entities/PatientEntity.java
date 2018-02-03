@@ -49,7 +49,6 @@ public class PatientEntity {
 
     @Column
     @NotNull
-    @Size(min= 6, max= 15)
     private Long phoneNumber;
 
     @Column

@@ -38,6 +38,15 @@ public class GiftValidator {
         List<String> result = new ArrayList<>();
         if (giftDtoList.size() == 0)
             result.add(ValidationMessages.listEmpty);
+        else{
+            List<String> tempList = new ArrayList<>();
+            for (GiftDto giftDto : giftDtoList) {
+                tempList = dtoValidation(giftDto);
+                for (String r : tempList) {
+                    result.add(r);
+                }
+            }
+        }
 //        for (GiftDto giftDto : giftDtoList) {
 //            if (giftDto == null );
 //                result.add(ValidationMessages.objectEmpty);

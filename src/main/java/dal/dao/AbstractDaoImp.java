@@ -72,7 +72,7 @@ public class AbstractDaoImp<E> implements DaoInterface<E> {
             Query jpaQuery = em.createQuery(query);
             jpaQuery.setParameter("id", id);
             E result = (E) jpaQuery.getSingleResult();
-            System.out.println(">>>>>>>>>>>result " + result);
+//            System.out.println(">>>>>>>>>>>result " + result);
             return result;
         }catch (NoResultException e){
             e.printStackTrace();
