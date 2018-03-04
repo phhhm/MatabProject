@@ -14,64 +14,65 @@ public class PatientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "first_name")
     @NotNull
     @Size(min= 3,max= 15)
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
     @NotNull
     @Size(min= 4, max= 20)
     private String lastName;
 
-    @Column
+    @Column(name = "certificate_code")
     @NotNull
-    @Min(1)
-    private Long certificateCode;
+    @Size(min = 1, max = 15)
+    private String certificateCode;
 
-    @Column
+    @Column(name = "national_code")
     @NotNull
-    @Min(10000)
-    private Long nationalCode;
+    @Size(min = 7, max = 15)
+    private String nationalCode;
 
-    @Column
+    @Column(name = "father_name")
     @NotNull
     @Size(min= 3, max= 15)
     private String fatherName;
 
-    @Column
+    @Column(name = "home_address")
     @NotNull
     @Size(min= 10, max= 40)
     private String homeAddress;
 
-    @Column
+    @Column(name = "phone_number")
     @NotNull
-    private Long phoneNumber;
+    @Size(min = 6, max = 15)
+    private String phoneNumber;
 
-    @Column
+    @Column(name = "sex")
     @NotNull
     @Size(min = 2, max = 3)
     private String sex;
 
-    @Column
-    @NotNull
+    @Column(name = "image_url", nullable = true)
+    @Size(min = 5)
     private String imageUrl;
 
-    @Column
-    @NotNull
+    @Column(name = "certificete_image_url", nullable = true)
+    @Size(min = 5)
     private String certificateImageUrl;
 
-    @Column
-    @NotNull
+    @Column(name = "national_card_image_url", nullable = true)
+    @Size(min = 5)
     private String nationalCardImageUrl;
 
-    @Column
+    @Column(name = "start_date")
     @NotNull
-    @Min(100000)
-    private Long startDate;
+    @Size(min = 5, max = 20)
+    private String startDate;
 
     @OneToOne(mappedBy = "patientEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FileEntity fileEntity;
@@ -100,19 +101,19 @@ public class PatientEntity {
         this.lastName = lastName;
     }
 
-    public Long getCertificateCode() {
+    public String getCertificateCode() {
         return certificateCode;
     }
 
-    public void setCertificateCode(Long certificateCode) {
+    public void setCertificateCode(String certificateCode) {
         this.certificateCode = certificateCode;
     }
 
-    public Long getNationalCode() {
+    public String getNationalCode() {
         return nationalCode;
     }
 
-    public void setNationalCode(Long nationalCode) {
+    public void setNationalCode(String nationalCode) {
         this.nationalCode = nationalCode;
     }
 
@@ -132,11 +133,11 @@ public class PatientEntity {
         this.homeAddress = homeAddress;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -172,11 +173,11 @@ public class PatientEntity {
         this.nationalCardImageUrl = nationalCardImageUrl;
     }
 
-    public Long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

@@ -10,23 +10,20 @@ public class CostEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(nullable = false)
+        @Column(nullable = false, name = "id")
         private Long id;
 
-        @Column
+        @Column(name = "sell")
         @NotNull
-        @Min(100)
-        private Long sell;
+        private String sell;
 
-        @Column
+        @Column(name = "buy")
         @NotNull
-        @Min(100)
-        private Long buy;
+        private String buy;
 
-        @Column
+        @Column(name = "date")
         @NotNull
-        @Min(100000)
-        private Long date;
+        private String date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drug_id", nullable = false)
@@ -40,27 +37,27 @@ public class CostEntity {
         this.id = id;
     }
 
-    public Long getSell() {
+    public String getSell() {
         return sell;
     }
 
-    public void setSell(Long sell) {
+    public void setSell(String sell) {
         this.sell = sell;
     }
 
-    public Long getBuy() {
+    public String getBuy() {
         return buy;
     }
 
-    public void setBuy(Long buy) {
+    public void setBuy(String buy) {
         this.buy = buy;
     }
 
-    public Long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

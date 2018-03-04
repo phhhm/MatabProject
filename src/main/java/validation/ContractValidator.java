@@ -16,19 +16,22 @@ public class ContractValidator {
         if (contractDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (contractDto != null && contractDto.getEndContractTime() == null) {
+            if (contractDto != null && (contractDto.getEndContractTime() == null
+                    || contractDto.getEndContractTime().trim().equals(""))){
                 result.add(ValidationMessages.endContractEmpty);
                 messageCount++;
             }
-            if (contractDto != null && contractDto.getMablagh() == null) {
+            if (contractDto != null && (contractDto.getMablagh() == null
+                    || contractDto.getMablagh().trim().equals(""))){
                 result.add(ValidationMessages.mablaghEmpty);
                 messageCount++;
             }
-            if (contractDto != null && contractDto.getEmployeeId() == null) {
+            if (contractDto != null && (contractDto.getEmployeeId() == null)){
                 result.add(ValidationMessages.employeeIdEmpty);
                 messageCount++;
             }
-            if (contractDto != null && contractDto.getStartContractTime() == null) {
+            if (contractDto != null && (contractDto.getStartContractTime() == null
+                    || contractDto.getStartContractTime().trim().equals(""))){
                 result.add(ValidationMessages.startContractEmpty);
                 messageCount++;
             }

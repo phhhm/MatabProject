@@ -12,19 +12,19 @@ public class DrugEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     @NotNull
     @Size(max = 15, min = 3)
     private String name;
 
-    @Column
+    @Column(name = "unit_type")
     @NotNull
     private String unitType;
 
-    @Column
+    @Column(name = "total_inventory")
     @NotNull
     private String totalInventory;
 

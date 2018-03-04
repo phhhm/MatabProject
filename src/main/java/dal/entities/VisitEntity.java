@@ -3,6 +3,7 @@ package dal.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "visit_entity")
@@ -10,18 +11,18 @@ public class VisitEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "visit_date")
     @NotNull
-    @Min(100000)
-    private Long visitDate;
+    @Size(min = 5,max = 20)
+    private String visitDate;
 
-    @Column
+    @Column(name = "next_visit_date")
     @NotNull
-    @Min(100000)
-    private Long nextVisitDate;
+    @Size(min = 5,max = 20)
+    private String nextVisitDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -42,19 +43,19 @@ public class VisitEntity {
         this.id = id;
     }
 
-    public Long getVisitDate() {
+    public String getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(Long visitDate) {
+    public void setVisitDate(String visitDate) {
         this.visitDate = visitDate;
     }
 
-    public Long getNextVisitDate() {
+    public String getNextVisitDate() {
         return nextVisitDate;
     }
 
-    public void setNextVisitDate(Long nextVisitDate) {
+    public void setNextVisitDate(String nextVisitDate) {
         this.nextVisitDate = nextVisitDate;
     }
 

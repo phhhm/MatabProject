@@ -1,8 +1,11 @@
 package controller;
 
 import biz.ContractBiz;
+import biz.EmployeeBiz;
 import biz.ValidationException;
 import biz.dto.ContractDto;
+import biz.dto.EmployeeDto;
+import com.sun.org.apache.regexp.internal.RE;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -17,6 +20,9 @@ public class ContractController {
 
     @Inject
     private ContractBiz contractBiz;
+
+    @Inject
+    private EmployeeBiz employeeBiz;
 
     @GET
     @Produces("application/json")
@@ -103,6 +109,23 @@ public class ContractController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get")
+    @Produces("application/json")
+    public Response getWithNoDuplicate(){
+        try {
+            List<EmployeeDto> employeeDtoList = contractBiz.getEmployeeWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(employeeDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

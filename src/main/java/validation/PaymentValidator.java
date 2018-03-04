@@ -16,19 +16,22 @@ public class PaymentValidator {
         if (paymentDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (paymentDto != null && paymentDto.getBime() == null) {
+            if (paymentDto != null && (paymentDto.getBime() == null
+                    || paymentDto.getBime().trim().equals(""))) {
                 result.add(ValidationMessages.bimeEmpty);
                 messageCount++;
             }
-            if (paymentDto != null && paymentDto.getMainPayment() == null){
+            if (paymentDto != null && (paymentDto.getMainPayment() == null
+                    || paymentDto.getMainPayment().trim().equals(""))) {
                 result.add(ValidationMessages.mainPaymentEmpty);
                 messageCount++;
             }
-            if (paymentDto != null && paymentDto.getMaliat() == null){
+            if (paymentDto != null && (paymentDto.getMaliat() == null
+                    || paymentDto.getMaliat().trim().equals(""))) {
                 result.add(ValidationMessages.maliatEmpty);
                 messageCount++;
             }
-            if (paymentDto != null && paymentDto.getEmployeeId() == null){
+            if (paymentDto != null && paymentDto.getEmployeeId() == null) {
                 result.add(ValidationMessages.employeeIdEmpty);
                 messageCount++;
             }

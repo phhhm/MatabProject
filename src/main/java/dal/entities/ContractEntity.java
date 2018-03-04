@@ -3,6 +3,7 @@ package dal.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -11,25 +12,25 @@ public class ContractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "mablagh")
     @NotNull
-    @Min(100000)
-    private Long mablagh;
+    @Size(min = 4, max = 10)
+    private String mablagh;
 
-    @Column
+    @Column(name = "start_contract_time")
     @NotNull
-    @Min(100000)
-    private Long startContractTime;
+    @Size(min = 6, max = 20)
+    private String startContractTime;
 
-    @Column
+    @Column(name = "end_contract_time")
     @NotNull
-    @Min(100000)
-    private Long endContractTime;
+    @Size(min = 6, max = 20)
+    private String endContractTime;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 
@@ -41,27 +42,27 @@ public class ContractEntity {
         this.id = id;
     }
 
-    public Long getMablagh() {
+    public String getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Long mablagh) {
+    public void setMablagh(String mablagh) {
         this.mablagh = mablagh;
     }
 
-    public Long getStartContractTime() {
+    public String getStartContractTime() {
         return startContractTime;
     }
 
-    public void setStartContractTime(Long startContractTime) {
+    public void setStartContractTime(String startContractTime) {
         this.startContractTime = startContractTime;
     }
 
-    public Long getEndContractTime() {
+    public String getEndContractTime() {
         return endContractTime;
     }
 
-    public void setEndContractTime(Long endContractTime) {
+    public void setEndContractTime(String endContractTime) {
         this.endContractTime = endContractTime;
     }
 

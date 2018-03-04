@@ -21,7 +21,8 @@ public class FileValidator {
                 result.add(ValidationMessages.consumableDragEmpty);
                 messageCount++;
             }
-            if (fileDto != null && fileDto.getFileCode() == null){
+            if (fileDto != null && (fileDto.getFileCode() == null
+                    || fileDto.getFileCode().trim().equals(""))) {
                 result.add(ValidationMessages.fileCodeEmpty);
                 messageCount++;
             }
@@ -30,15 +31,16 @@ public class FileValidator {
                 result.add(ValidationMessages.descriptionEmpty);
                 messageCount++;
             }
-            if (fileDto != null && fileDto.getStartDate() == null){
+            if (fileDto != null && (fileDto.getStartDate() == null
+                    || fileDto.getStartDate().trim().equals(""))) {
                 result.add(ValidationMessages.startDateEmpty);
                 messageCount++;
             }
-            if (fileDto != null && fileDto.getPatientId() == null){
+            if (fileDto != null && (fileDto.getPatientId() == null)) {
                 result.add(ValidationMessages.patientIdEmpty);
                 messageCount++;
             }
-            if (fileDto != null && fileDto.getTransactionId() == null){
+            if (fileDto != null && (fileDto.getTransactionId() == null)) {
                 result.add(ValidationMessages.transactionIdEmpty);
                 messageCount++;
             }

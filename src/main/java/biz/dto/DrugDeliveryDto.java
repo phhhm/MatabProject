@@ -4,9 +4,9 @@ public class DrugDeliveryDto {
 
     private Long id;
     private String sourceType;
-    private Integer useDuration;
-    private Long deliveryDate;
-    private Long sourceId;
+    private String useDuration;
+    private String deliveryDate;
+    private String sourceId;
     private Long employeeId;
     private Long transactionId;
 
@@ -42,27 +42,27 @@ public class DrugDeliveryDto {
         this.sourceType = sourceType;
     }
 
-    public Integer getUseDuration() {
+    public String getUseDuration() {
         return useDuration;
     }
 
-    public void setUseDuration(Integer useDuration) {
+    public void setUseDuration(String useDuration) {
         this.useDuration = useDuration;
     }
 
-    public Long getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Long deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
-    public Long getSourceId() {
+    public String getSourceId() {
         return sourceId;
     }
 
-    public void setSourceId(Long sourceId) {
+    public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
 }

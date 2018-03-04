@@ -15,25 +15,25 @@ public class TransactionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "date")
     @NotNull
-    @Min(100000)
-    private Long date;
+    @Size(min= 5, max= 20)
+    private String date;
 
-    @Column
+    @Column(name = "mablagh")
     @NotNull
-    @Min(100)
-    private Long mablagh;
+    @Size(min= 5, max= 20)
+    private String mablagh;
 
-    @Column
+    @Column(name = "type")
     @NotNull
     @Size(min= 3, max= 20)
     private String type;
 
-    @Column
+    @Column(name = "transaction_source_id")
     @NotNull
     private Long transactionSourceId;
 
@@ -55,19 +55,19 @@ public class TransactionEntity {
         this.id = id;
     }
 
-    public Long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Long getMablagh() {
+    public String getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Long mablagh) {
+    public void setMablagh(String mablagh) {
         this.mablagh = mablagh;
     }
 

@@ -12,13 +12,12 @@ public class PurchaseSourceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     @NotNull
     @Size(max = 15, min = 3)
-//    @Digits(fraction = 3, integer = 15)
     private String name;
 
     public Long getId() {

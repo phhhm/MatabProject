@@ -17,11 +17,13 @@ public class VisitValidator {
         if (visitDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (visitDto != null && visitDto.getNextVisitDate() == null) {
+            if (visitDto != null && (visitDto.getNextVisitDate() == null
+                    || visitDto.getNextVisitDate().trim().equals(""))){
                 result.add(ValidationMessages.nextVisitDateEmpty);
                 messageCount++;
             }
-            if (visitDto != null && visitDto.getVisitDate() == null){
+            if (visitDto != null && (visitDto.getVisitDate() == null
+                    || visitDto.getVisitDate().trim().equals(""))){
                 result.add(ValidationMessages.dateEmpty);
                 messageCount++;
             }

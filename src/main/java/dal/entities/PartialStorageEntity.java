@@ -9,10 +9,10 @@ public class PartialStorageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "drug_amount_in_unit")
     @NotNull
     private Integer drugAmountInUnit;
 

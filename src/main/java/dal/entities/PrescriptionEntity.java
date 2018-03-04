@@ -10,14 +10,14 @@ public class PrescriptionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
     @OneToMany(mappedBy = "prescriptionEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PrescriptionDrugEntity> prescriptionDrugEntityList;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "visit_id")
+    @JoinColumn(name = "visit_id", nullable = false)
     private VisitEntity visitEntity;
 
     public Long getId() {

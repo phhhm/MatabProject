@@ -28,7 +28,8 @@ public class EmployeeValidator {
                 result.add(ValidationMessages.degreeEmployeeEmpty);
                 messageCount++;
             }
-            if (employeeDto != null && employeeDto.getEmployeeCode() == null){
+            if (employeeDto != null && (employeeDto.getEmployeeCode() == null
+                    || employeeDto.getEmployeeCode().trim().equals(""))){
                 result.add(ValidationMessages.employeeCodeEmpty);
                 messageCount++;
             }
@@ -47,7 +48,8 @@ public class EmployeeValidator {
                 result.add(ValidationMessages.homeAddressEmpty);
                 messageCount++;
             }
-            if (employeeDto != null && employeeDto.getImage() == null){
+            if (employeeDto != null && (employeeDto.getImage() == null
+                    || employeeDto.getImage().trim().equals(""))){
                 result.add(ValidationMessages.imageEmpty);
                 messageCount++;
             }
@@ -56,7 +58,8 @@ public class EmployeeValidator {
                 result.add(ValidationMessages.lastNameEmpty);
                 messageCount++;
             }
-            if (employeeDto != null && employeeDto.getPhoneNumber() == null){
+            if (employeeDto != null && (employeeDto.getPhoneNumber() == null
+                    || employeeDto.getPhoneNumber().trim().equals(""))){
                 result.add(ValidationMessages.phoneNumberEmpty);
                 messageCount++;
             }
@@ -64,11 +67,13 @@ public class EmployeeValidator {
                 result.add(ValidationMessages.remainMorekhasiEmpty);
                 messageCount++;
             }
-            if (employeeDto != null && employeeDto.getUcode() == null){
+            if (employeeDto != null && (employeeDto.getUcode() == null
+                    || employeeDto.getUcode().trim().equals(""))){
                 result.add(ValidationMessages.ucodeEmpty);
                 messageCount++;
             }
-            if (employeeDto != null && employeeDto.getUid() == null){
+            if (employeeDto != null && (employeeDto.getUid() == null
+                    || employeeDto.getUid().trim().equals(""))){
                 result.add(ValidationMessages.uidEmpty);
                 messageCount++;
             }

@@ -17,7 +17,8 @@ public class PatientValidator {
         if (patientDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (patientDto != null && patientDto.getCertificateCode() == null){
+            if (patientDto != null && (patientDto.getCertificateCode() == null
+                    || patientDto.getCertificateCode().trim().equals(""))){
                 result.add(ValidationMessages.ucodeEmpty);
                 messageCount++;
             }
@@ -41,11 +42,13 @@ public class PatientValidator {
                 result.add(ValidationMessages.lastNameEmpty);
                 messageCount++;
             }
-            if (patientDto != null && patientDto.getPhoneNumber() == null){
+            if (patientDto != null && (patientDto.getPhoneNumber() == null
+                    || patientDto.getPhoneNumber().trim().equals(""))){
                 result.add(ValidationMessages.phoneNumberEmpty);
                 messageCount++;
             }
-            if (patientDto != null && patientDto.getNationalCode() == null){
+            if (patientDto != null && (patientDto.getNationalCode() == null
+                    || patientDto.getNationalCode().trim().equals(""))){
                 result.add(ValidationMessages.uidEmpty);
                 messageCount++;
             }

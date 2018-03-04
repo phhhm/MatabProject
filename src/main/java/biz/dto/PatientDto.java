@@ -7,16 +7,16 @@ public class PatientDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long certificateCode;
-    private Long nationalCode;
+    private String certificateCode;
+    private String nationalCode;
     private String fatherName;
     private String homeAddress;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String sex;
     private String imageUrl;
     private String certificateImageUrl;
     private String nationalCardImageUrl;
-    private Long startDate;
+    private String startDate;
 
     public Long getId() {
         return id;
@@ -42,19 +42,19 @@ public class PatientDto {
         this.lastName = lastName;
     }
 
-    public Long getCertificateCode() {
+    public String getCertificateCode() {
         return certificateCode;
     }
 
-    public void setCertificateCode(Long certificateCode) {
+    public void setCertificateCode(String certificateCode) {
         this.certificateCode = certificateCode;
     }
 
-    public Long getNationalCode() {
+    public String getNationalCode() {
         return nationalCode;
     }
 
-    public void setNationalCode(Long nationalCode) {
+    public void setNationalCode(String nationalCode) {
         this.nationalCode = nationalCode;
     }
 
@@ -74,11 +74,11 @@ public class PatientDto {
         this.homeAddress = homeAddress;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -114,11 +114,11 @@ public class PatientDto {
         this.nationalCardImageUrl = nationalCardImageUrl;
     }
 
-    public Long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 }

@@ -3,6 +3,7 @@ package dal.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -14,38 +15,38 @@ public class PaymentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false )
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "main_payment")
     @NotNull
-    @Min(10000)
-    private Long mainPayment;
+    @Size(min = 4, max = 15)
+    private String mainPayment;
 
-    @Column
-    @Min(10000)
-    private Long bime;
+    @Column(name = "bime", nullable = true)
+    @Size(min = 4, max = 15)
+    private String bime;
 
-    @Column
-    @Min(1000)
-    private Long kasri;
+    @Column(name = "kasri", nullable = true)
+    @Size(min = 4, max = 15)
+    private String kasri;
 
-    @Column
-    @Min(1000)
-    private Long sanavat;
+    @Column(name = "sanavat", nullable = true)
+    @Size(min = 4, max = 15)
+    private String sanavat;
 
-    @Column
-    @Min(1000)
-    private Integer maliat;
+    @Column(name = "maliat", nullable = true)
+    @Size(min = 4, max = 15)
+    private String maliat;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "employee_id", nullable = false)
     private EmployeeEntity employeeEntity;
 
-    @OneToMany(mappedBy = "paymentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "paymentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<TransactionEntity> transactionEntityList;
 
-    @OneToOne(mappedBy = "paymentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "paymentEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private GiftEntity giftEntity;
 
     public Long getId() {
@@ -56,43 +57,43 @@ public class PaymentEntity {
         this.id = id;
     }
 
-    public Long getMainPayment() {
+    public String getMainPayment() {
         return mainPayment;
     }
 
-    public void setMainPayment(Long mainPayment) {
+    public void setMainPayment(String mainPayment) {
         this.mainPayment = mainPayment;
     }
 
-    public Long getBime() {
+    public String getBime() {
         return bime;
     }
 
-    public void setBime(Long bime) {
+    public void setBime(String bime) {
         this.bime = bime;
     }
 
-    public Long getKasri() {
+    public String getKasri() {
         return kasri;
     }
 
-    public void setKasri(Long kasri) {
+    public void setKasri(String kasri) {
         this.kasri = kasri;
     }
 
-    public Long getSanavat() {
+    public String getSanavat() {
         return sanavat;
     }
 
-    public void setSanavat(Long sanavat) {
+    public void setSanavat(String sanavat) {
         this.sanavat = sanavat;
     }
 
-    public Integer getMaliat() {
+    public String getMaliat() {
         return maliat;
     }
 
-    public void setMaliat(Integer maliat) {
+    public void setMaliat(String maliat) {
         this.maliat = maliat;
     }
 

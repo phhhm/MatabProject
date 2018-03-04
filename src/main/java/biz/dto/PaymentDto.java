@@ -4,12 +4,12 @@ package biz.dto;
  * Created by parham on 27/10/2017.
  */
 public class PaymentDto {
-    private Long id;
-    private Long mainPayment;
-    private Long bime;
-    private Long kasri;
-    private Long sanavat;
-    private Integer maliat;
+    private String id;
+    private String mainPayment;
+    private String bime;
+    private String kasri;
+    private String sanavat;
+    private String maliat;
     private Long employeeId;
 
     public Long getEmployeeId() {
@@ -20,51 +20,51 @@ public class PaymentDto {
         this.employeeId = employeeId;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getMainPayment() {
+    public String getMainPayment() {
         return mainPayment;
     }
 
-    public void setMainPayment(Long mainPayment) {
+    public void setMainPayment(String mainPayment) {
         this.mainPayment = mainPayment;
     }
 
-    public Long getBime() {
+    public String getBime() {
         return bime;
     }
 
-    public void setBime(Long bime) {
+    public void setBime(String bime) {
         this.bime = bime;
     }
 
-    public Long getKasri() {
+    public String getKasri() {
         return kasri;
     }
 
-    public void setKasri(Long kasri) {
+    public void setKasri(String kasri) {
         this.kasri = kasri;
     }
 
-    public Long getSanavat() {
+    public String getSanavat() {
         return sanavat;
     }
 
-    public void setSanavat(Long sanavat) {
+    public void setSanavat(String sanavat) {
         this.sanavat = sanavat;
     }
 
-    public Integer getMaliat() {
+    public String getMaliat() {
         return maliat;
     }
 
-    public void setMaliat(Integer maliat) {
+    public void setMaliat(String maliat) {
         this.maliat = maliat;
     }
 }

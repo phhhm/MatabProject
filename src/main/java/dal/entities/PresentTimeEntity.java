@@ -14,20 +14,20 @@ public class PresentTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "start_time")
     @NotNull
-    @Min(100000)
-    private Long startTime;
+    @Size(min= 5, max= 20)
+    private String startTime;
 
-    @Column
+    @Column(name = "end_time")
     @NotNull
-    @Min(100000)
-    private Long endTime;
+    @Size(min= 5, max= 20)
+    private String endTime;
 
-    @Column
+    @Column(name = "week_day")
     @NotNull
     @Size(min= 4, max= 8)
     private String weekDay;
@@ -45,19 +45,19 @@ public class PresentTimeEntity {
         this.id = id;
     }
 
-    public Long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

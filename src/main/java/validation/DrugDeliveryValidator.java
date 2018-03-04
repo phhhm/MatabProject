@@ -16,11 +16,14 @@ public class DrugDeliveryValidator {
         if (drugDeliveryDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (drugDeliveryDto != null && drugDeliveryDto.getDeliveryDate() == null){
+            if (drugDeliveryDto != null && (drugDeliveryDto.getDeliveryDate() == null
+                    || drugDeliveryDto.getDeliveryDate().trim().equals(""))){
+
                 result.add(ValidationMessages.deliveryDateEmpty);
                 messageCount++;
             }
-            if (drugDeliveryDto != null && drugDeliveryDto.getSourceId() == null){
+            if (drugDeliveryDto != null && (drugDeliveryDto.getSourceId() == null
+                    || drugDeliveryDto.getSourceId().trim().equals(""))){
                 result.add(ValidationMessages.sourceIdEmpty);
                 messageCount++;
             }
@@ -29,15 +32,16 @@ public class DrugDeliveryValidator {
                 result.add(ValidationMessages.sourceTypeEmpty);
                 messageCount++;
             }
-            if (drugDeliveryDto != null && drugDeliveryDto.getUseDuration() == null){
+            if (drugDeliveryDto != null && (drugDeliveryDto.getUseDuration() == null
+                    || drugDeliveryDto.getUseDuration().trim().equals(""))){
                 result.add(ValidationMessages.useDurationEmpty);
                 messageCount++;
             }
-            if (drugDeliveryDto != null && drugDeliveryDto.getEmployeeId() == null){
+            if (drugDeliveryDto != null && (drugDeliveryDto.getEmployeeId() == null)){
                 result.add(ValidationMessages.employeeIdEmpty);
                 messageCount++;
             }
-            if (drugDeliveryDto != null && drugDeliveryDto.getTransactionId() == null){
+            if (drugDeliveryDto != null && (drugDeliveryDto.getTransactionId() == null)){
                 result.add(ValidationMessages.transactionIdEmpty);
                 messageCount++;
             }

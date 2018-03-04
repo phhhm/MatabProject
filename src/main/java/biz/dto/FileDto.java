@@ -5,10 +5,10 @@ package biz.dto;
  */
 public class FileDto {
     private Long id;
-    private Long fileCode;
+    private String fileCode;
     private String consumableDrugs;
-    private Long endDate;
-    private Long startDate;
+    private String endDate;
+    private String startDate;
     private String description;
     private Long patientId;
     private Long transactionId;
@@ -37,11 +37,11 @@ public class FileDto {
         this.id = id;
     }
 
-    public Long getFileCode() {
+    public String getFileCode() {
         return fileCode;
     }
 
-    public void setFileCode(Long fileCode) {
+    public void setFileCode(String fileCode) {
         this.fileCode = fileCode;
     }
 
@@ -49,11 +49,11 @@ public class FileDto {
         return consumableDrugs;
     }
 
-    public Long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
@@ -61,11 +61,11 @@ public class FileDto {
         this.consumableDrugs = consumableDrugs;
     }
 
-    public Long getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Long endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

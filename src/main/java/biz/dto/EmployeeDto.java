@@ -9,10 +9,10 @@ public class EmployeeDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long uid;
-    private Long ucode;
-    private Long phoneNumber;
-    private Long employeeCode;
+    private String uid;
+    private String ucode;
+    private String phoneNumber;
+    private String employeeCode;
     private String homeAddress;
     private String degree;
     private String ability;
@@ -44,35 +44,35 @@ public class EmployeeDto {
         this.lastName = lastName;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public Long getUcode() {
+    public String getUcode() {
         return ucode;
     }
 
-    public void setUcode(Long ucode) {
+    public void setUcode(String ucode) {
         this.ucode = ucode;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getEmployeeCode() {
+    public String getEmployeeCode() {
         return employeeCode;
     }
 
-    public void setEmployeeCode(Long employeeCode) {
+    public void setEmployeeCode(String employeeCode) {
         this.employeeCode = employeeCode;
     }
 

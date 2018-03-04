@@ -43,9 +43,9 @@ public class AuthenticationFilter implements Filter {
 //            while (headers.hasMoreElements()){
 //                String header = headers.nextElement();
 //                System.out.println(header);
-////                if (header.trim().equals("user-id")){
-////
-////                }
+//                if (header.trim().equals("user-id")){
+//
+//                }
 //            }
 //            String userId = httpServletRequest.getHeader("user-id");
 //            try {

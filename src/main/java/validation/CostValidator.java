@@ -16,19 +16,22 @@ public class CostValidator {
         if (costDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (costDto != null && costDto.getBuy() == null) {
+            if (costDto != null && (costDto.getBuy() == null
+                || costDto.getBuy().trim().equals(""))){
                 result.add(ValidationMessages.buyEmpty);
                 messageCount++;
             }
-            if (costDto != null && costDto.getSell() == null) {
+            if (costDto != null && (costDto.getSell() == null
+                    || costDto.getSell().trim().equals(""))){
                 result.add(ValidationMessages.sellEmpty);
                 messageCount++;
             }
-            if (costDto != null && costDto.getDate() == null) {
+            if (costDto != null && (costDto.getDate() == null
+                    || costDto.getDate().trim().equals(""))){
                 result.add(ValidationMessages.dateEmpty);
                 messageCount++;
             }
-            if (costDto != null && costDto.getDrugId() == null) {
+            if (costDto != null && (costDto.getDrugId() == null)){
                 result.add(ValidationMessages.drugIdEmpty);
                 messageCount++;
             }

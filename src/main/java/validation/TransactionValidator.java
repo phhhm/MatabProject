@@ -16,11 +16,13 @@ public class TransactionValidator {
         if (transactionDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (transactionDto != null && transactionDto.getDate() == null) {
+            if (transactionDto != null && (transactionDto.getDate() == null
+                || transactionDto.getType().trim().equals(""))){
                 result.add(ValidationMessages.dateEmpty);
                 messageCount++;
             }
-            if (transactionDto != null && transactionDto.getMablagh() == null){
+            if (transactionDto != null && (transactionDto.getMablagh() == null
+                    || transactionDto.getType().trim().equals(""))){
                 result.add(ValidationMessages.mablaghEmpty);
                 messageCount++;
             }
@@ -33,7 +35,8 @@ public class TransactionValidator {
                 result.add(ValidationMessages.paymentIdEmpty);
                 messageCount++;
             }
-            if (transactionDto != null && transactionDto.getTransactionSourceId() == null){
+            if (transactionDto != null && (transactionDto.getTransactionSourceId() == null
+                    || transactionDto.getType().trim().equals(""))){
                 result.add(ValidationMessages.transactionSourceIdEmpty);
                 messageCount++;
             }

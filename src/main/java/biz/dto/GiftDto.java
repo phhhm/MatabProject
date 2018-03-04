@@ -6,7 +6,7 @@ package biz.dto;
 public class GiftDto {
     private Long id;
     private String cause;
-    private Long mablagh;
+    private String mablagh;
     private Long paymentId;
 
     public Long getPaymentId() {
@@ -33,11 +33,11 @@ public class GiftDto {
         this.cause = cause;
     }
 
-    public Long getMablagh() {
+    public String getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Long mablagh) {
+    public void setMablagh(String mablagh) {
         this.mablagh = mablagh;
     }
 }

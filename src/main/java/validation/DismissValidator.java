@@ -26,7 +26,7 @@ public class DismissValidator {
                 result.add(ValidationMessages.untilDateEmpty);
                 messageCount++;
             }
-            if (dismissDto != null && dismissDto.getEmployeeId() == null){
+            if (dismissDto != null && (dismissDto.getEmployeeId() == null)) {
                 result.add(ValidationMessages.employeeIdEmpty);
                 messageCount++;
             }

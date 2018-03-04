@@ -4,6 +4,7 @@ package dal.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by parham on 27/10/2017.
@@ -14,18 +15,18 @@ public class DismissEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "from_date")
     @NotNull
-    @Min(100000)
-    private Long fromDate;
+    @Size(max = 20, min = 5)
+    private String fromDate;
 
-    @Column
+    @Column(name = "until_date")
     @NotNull
-    @Min(100000)
-    private Long untilDate;
+    @Size(max = 20, min = 5)
+    private String untilDate;
 
     @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -39,19 +40,19 @@ public class DismissEntity {
         this.id = id;
     }
 
-    public Long getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Long fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Long getUntilDate() {
+    public String getUntilDate() {
         return untilDate;
     }
 
-    public void setUntilDate(Long untilDate) {
+    public void setUntilDate(String untilDate) {
         this.untilDate = untilDate;
     }
 

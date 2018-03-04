@@ -1,11 +1,7 @@
 package dal.entities;
 
-import org.jboss.resteasy.spi.touri.URITemplate;
-
-import javax.enterprise.inject.Default;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import javax.ws.rs.DefaultValue;
 import java.util.List;
 
 /**
@@ -17,79 +13,77 @@ public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "first_name")
     @NotNull
     @Size(min= 3, max= 15)
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
     @NotNull
     @Size(min= 3, max= 20)
     private String lastName;
 
-    @Column
+    @Column(name = "uid")
     @NotNull
-    private Long uid;
+    private String uid;
 
-    @Column
+    @Column(name = "ucode")
     @NotNull
-    private Long ucode;
+    private String ucode;
 
-    @Column
+    @Column(name = "phone_number")
     @NotNull
-    @Min(1000000)
-    private Long phoneNumber;
+    private String phoneNumber;
 
-    @Column
+    @Column(name = "employee_code")
     @NotNull
-    private Long employeeCode;
+    private String employeeCode;
 
-    @Column
+    @Column(name = "home_address")
     @NotNull
     @Size(min= 10, max= 40)
     private String homeAddress;
 
-    @Column
+    @Column(name = "degree")
     @NotNull
     @Size(min= 3, max= 20)
     private String degree;
 
-    @Column
+    @Column(name = "ability")
     @NotNull
     @Size(min= 5, max= 30)
     private String ability;
 
-    @Column
+    @Column(name = "employee_type")
     @NotNull
     private String employeeType;
 
-    @Column
+    @Column(name = "remain_morekhasi")
     @NotNull
     private Integer remainMorekhasi;
 
-    @Column
-    @NotNull
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany( mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PresentTimeEntity> presentTimeEntityList;
 
-    @OneToOne(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private PaymentEntity paymentEntity;
 
-    @OneToOne(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private ContractEntity contractEntity;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DismissEntity> dismissEntityList;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DrugDeliveryEntity> drugDeliveryEntityList;
 
-    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VisitEntity> visitEntiyList;
 
     public Long getId() {
@@ -116,35 +110,35 @@ public class EmployeeEntity {
         this.lastName = lastName;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public Long getUcode() {
+    public String getUcode() {
         return ucode;
     }
 
-    public void setUcode(Long ucode) {
+    public void setUcode(String ucode) {
         this.ucode = ucode;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getEmployeeCode() {
+    public String getEmployeeCode() {
         return employeeCode;
     }
 
-    public void setEmployeeCode(Long employeeCode) {
+    public void setEmployeeCode(String employeeCode) {
         this.employeeCode = employeeCode;
     }
 

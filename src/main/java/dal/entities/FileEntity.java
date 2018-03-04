@@ -14,29 +14,28 @@ public class FileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "file_code")
     @NotNull
-    @Min(1)
-    private Long fileCode;
+    private String fileCode;
 
-    @Column
+    @Column(name = "consum_able_drugs")
     @NotNull
     @Size(min= 3, max= 20)
     private String consumableDrugs;
 
-    @Column
-    @Min(10000)
-    private Long endDate;
+    @Column(name = "end_date")
+    @Size(min= 5, max= 20)
+    private String endDate;
 
-    @Column
+    @Column(name = "start_date")
     @NotNull
-    @Min(10000)
-    private Long startDate;
+    @Size(min= 5, max= 20)
+    private String startDate;
 
-    @Column
+    @Column(name = "description")
     @NotNull
     @Size(min= 5, max= 50)
     private String description;
@@ -49,7 +48,7 @@ public class FileEntity {
     private PatientEntity patientEntity;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_id")
+    @JoinColumn(name = "transaction_id", nullable = false)
     private TransactionEntity transactionEntity;
 
     public Long getId() {
@@ -60,11 +59,11 @@ public class FileEntity {
         this.id = id;
     }
 
-    public Long getFileCode() {
+    public String getFileCode() {
         return fileCode;
     }
 
-    public void setFileCode(Long fileCode) {
+    public void setFileCode(String fileCode) {
         this.fileCode = fileCode;
     }
 
@@ -76,19 +75,19 @@ public class FileEntity {
         this.consumableDrugs = consumableDrugs;
     }
 
-    public Long getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Long endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public Long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

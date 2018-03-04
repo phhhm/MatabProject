@@ -7,9 +7,9 @@ import java.util.Date;
  */
 public class ContractDto {
     private Long id;
-    private Long mablagh;
-    private Long startContractTime;
-    private Long endContractTime;
+    private String mablagh;
+    private String startContractTime;
+    private String endContractTime;
     private Long employeeId;
 
 
@@ -29,27 +29,27 @@ public class ContractDto {
         this.id = id;
     }
 
-    public Long getMablagh() {
+    public String getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Long mablagh) {
+    public void setMablagh(String mablagh) {
         this.mablagh = mablagh;
     }
 
-    public Long getStartContractTime() {
+    public String getStartContractTime() {
         return startContractTime;
     }
 
-    public void setStartContractTime(Long startContractTime) {
+    public void setStartContractTime(String startContractTime) {
         this.startContractTime = startContractTime;
     }
 
-    public Long getEndContractTime() {
+    public String getEndContractTime() {
         return endContractTime;
     }
 
-    public void setEndContractTime(Long endContractTime) {
+    public void setEndContractTime(String endContractTime) {
         this.endContractTime = endContractTime;
     }
 }

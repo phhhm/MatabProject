@@ -22,7 +22,8 @@ public class GiftValidator {
                 result.add(ValidationMessages.causeEmpty);
                 messageCount++;
             }
-            if (giftDto != null && giftDto.getMablagh() == null) {
+            if (giftDto != null && (giftDto.getMablagh() == null
+                    || giftDto.getMablagh().trim().equals(""))) {
                 result.add(ValidationMessages.mablaghEmpty);
                 messageCount++;
             }

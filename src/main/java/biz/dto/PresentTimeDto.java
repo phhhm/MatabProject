@@ -8,8 +8,8 @@ import java.sql.Time;
 public class PresentTimeDto {
 
     private Long id;
-    private Long startTime;
-    private Long endTime;
+    private String startTime;
+    private String endTime;
     private String weekDay;
     private Long employeeId;
 
@@ -29,19 +29,19 @@ public class PresentTimeDto {
         this.id = id;
     }
 
-    public Long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

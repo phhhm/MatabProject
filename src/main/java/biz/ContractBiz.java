@@ -1,6 +1,7 @@
 package biz;
 
 import biz.dto.ContractDto;
+import biz.dto.EmployeeDto;
 import converter.MainConverter;
 import dal.dao.ContractDao;
 import dal.dao.EmployeeDao;
@@ -11,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +23,9 @@ public class ContractBiz {
 
     @Inject
     private ContractDao contractDao;
+
+    @Inject
+    private EmployeeBiz employeeBiz;
 
     @Inject
     private EmployeeDao employeeDao;
@@ -82,5 +87,24 @@ public class ContractBiz {
 
     public void removeAll() throws SQLException {
         contractDao.removeAll();
+    }
+
+    public List<EmployeeDto> getEmployeeWithNoDuplicate() throws SQLException, ValidationException {
+        List<EmployeeDto> noDuplicateEmployeeDtoList = new ArrayList<EmployeeDto>();
+        List<EmployeeDto> temp = new ArrayList<EmployeeDto>();
+        List<ContractDto> allContractDtoList = getAll();
+        List<EmployeeDto> employeeDtoList = employeeBiz.getAll();
+        List<Long> employeeId = new ArrayList<Long>();
+
+        for (ContractDto contractDto : allContractDtoList) {
+            for (EmployeeDto employeeDto : employeeDtoList) {
+                if ((contractDto.getEmployeeId()) == (employeeDto.getId())){
+                    temp.add(employeeDto);
+                }
+            }
+        }
+        employeeDtoList.removeIf(temp::contains);
+
+        return employeeDtoList;
     }
 }

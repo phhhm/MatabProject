@@ -26,9 +26,9 @@ public class ValidationMessages {
     public static String employeeCodeEmpty = "فیلد کد پرسنلی نمیتواند خالی باشد";
     public static String employeeTypeEmpty = "فیلد نوع کارمند نمیتواند خالی باشد";
     public static String firstNameEmpty = "فیلد نام نمیتواند خالی باشد";
+    public static String lastNameEmpty = " فیلد نام خانوادگی نمیتواند خالی باشد";
     public static String homeAddressEmpty = "فیلد آدرس خانه نمیتواند خالی باشد";
     public static String imageEmpty = "فیلد عکس نمیتواند خالی باشد";
-    public static String lastNameEmpty = " فیلد نام خانوادگی نمیتواند خالی باشد";
     public static String phoneNumberEmpty = "فیلد تلفن نمیتواند خالی باشد";
     public static String remainMorekhasiEmpty = "فیلد مرخصی باقی مانده نمیتواند خالی باشد";
     public static String ucodeEmpty = "فیلد شماره شناسنامه نمیتواند خالی باشد";

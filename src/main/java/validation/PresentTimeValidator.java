@@ -16,11 +16,13 @@ public class PresentTimeValidator {
         if (presentTimeDto==null)
             result.add(ValidationMessages.objectEmpty);
         else {
-            if (presentTimeDto != null && presentTimeDto.getEndTime() == null) {
+            if (presentTimeDto != null && (presentTimeDto.getEndTime() == null
+                    || presentTimeDto.getEndTime().trim().equals(""))){
                 result.add(ValidationMessages.endTimeEmpty);
                 messageCount++;
             }
-            if (presentTimeDto != null && presentTimeDto.getStartTime() == null){
+            if (presentTimeDto != null && (presentTimeDto.getStartTime() == null
+                    || presentTimeDto.getStartTime().trim().equals(""))){
                 result.add(ValidationMessages.startTimeEmpty);
                 messageCount++;
             }

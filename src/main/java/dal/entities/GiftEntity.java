@@ -15,21 +15,21 @@ public class GiftEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "cause")
     @NotNull
     @Size(min= 3,max= 20)
     private String cause;
 
-    @Column
+    @Column(name = "mablagh")
     @NotNull
-    @Min(1000)
-    private Long mablagh;
+    @Size(min= 4,max= 15)
+    private String mablagh;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "payment_id")
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "payment_id", nullable = false)
     private PaymentEntity paymentEntity;
 
     public Long getId() {
@@ -48,11 +48,11 @@ public class GiftEntity {
         this.cause = cause;
     }
 
-    public Long getMablagh() {
+    public String getMablagh() {
         return mablagh;
     }
 
-    public void setMablagh(Long mablagh) {
+    public void setMablagh(String mablagh) {
         this.mablagh = mablagh;
     }
 
