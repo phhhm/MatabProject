@@ -1,5 +1,6 @@
 package biz;
 
+import biz.dto.EmployeeDto;
 import biz.dto.PaymentDto;
 import converter.MainConverter;
 import dal.dao.EmployeeDao;
@@ -11,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +30,12 @@ public class PaymentBiz {
     @Inject
     private PaymentValidator paymentValidator;
 
+    @Inject
+    private EmployeeBiz employeeBiz;
+
     @EJB
     private MainConverter converter;
+
 
     public List<PaymentDto> getAll() throws SQLException, ValidationException {
         List<PaymentDto> paymentDtoList = converter.getList(paymentDao.getAll(), PaymentDto.class);
@@ -82,5 +88,22 @@ public class PaymentBiz {
 
     public void removeAll() throws SQLException {
         paymentDao.removeAll();
+    }
+
+    public List<EmployeeDto> getEmployeeWithNoDuplicate() throws SQLException, ValidationException {
+        List<EmployeeDto> temp = new ArrayList<>();
+        List<PaymentDto> allPaymentDtoList = getAll();
+        List<EmployeeDto> employeeDtoList = employeeBiz.getAll();
+
+        for (PaymentDto paymentDto : allPaymentDtoList) {
+            for (EmployeeDto employeeDto : employeeDtoList) {
+                if ((paymentDto.getEmployeeId()) == (employeeDto.getId())){
+                    temp.add(employeeDto);
+                }
+            }
+        }
+        employeeDtoList.removeIf(temp::contains);
+
+        return employeeDtoList;
     }
 }

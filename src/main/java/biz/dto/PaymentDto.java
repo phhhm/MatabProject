@@ -4,7 +4,7 @@ package biz.dto;
  * Created by parham on 27/10/2017.
  */
 public class PaymentDto {
-    private String id;
+    private Long id;
     private String mainPayment;
     private String bime;
     private String kasri;
@@ -20,11 +20,11 @@ public class PaymentDto {
         this.employeeId = employeeId;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

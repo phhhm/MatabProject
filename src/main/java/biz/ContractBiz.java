@@ -90,11 +90,9 @@ public class ContractBiz {
     }
 
     public List<EmployeeDto> getEmployeeWithNoDuplicate() throws SQLException, ValidationException {
-        List<EmployeeDto> noDuplicateEmployeeDtoList = new ArrayList<EmployeeDto>();
-        List<EmployeeDto> temp = new ArrayList<EmployeeDto>();
+        List<EmployeeDto> temp = new ArrayList<>();
         List<ContractDto> allContractDtoList = getAll();
         List<EmployeeDto> employeeDtoList = employeeBiz.getAll();
-        List<Long> employeeId = new ArrayList<Long>();
 
         for (ContractDto contractDto : allContractDtoList) {
             for (EmployeeDto employeeDto : employeeDtoList) {

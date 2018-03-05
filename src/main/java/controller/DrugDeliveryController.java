@@ -3,6 +3,7 @@ package controller;
 import biz.DrugDeliveryBiz;
 import biz.ValidationException;
 import biz.dto.DrugDeliveryDto;
+import biz.dto.TransactionDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -100,6 +101,23 @@ public class DrugDeliveryController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_transaction")
+    @Produces("application/json")
+    public Response getWithNoDuplicate(){
+        try {
+            List<TransactionDto> transactionDtoList = drugDeliveryBiz.getTransactionWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(transactionDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

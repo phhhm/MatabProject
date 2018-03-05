@@ -1,6 +1,7 @@
 package biz;
 
 import biz.dto.GiftDto;
+import biz.dto.PaymentDto;
 import converter.MainConverter;
 import dal.dao.GiftDao;
 import dal.dao.PaymentDao;
@@ -11,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,9 @@ public class GiftBiz {
 
     @Inject
     private GiftValidator giftValidator;
+
+    @Inject
+    private PaymentBiz paymentBiz;
 
     @EJB
     private MainConverter converter;
@@ -82,5 +87,22 @@ public class GiftBiz {
 
     public void removeAll() throws SQLException {
         giftDao.removeAll();
+    }
+
+    public List<PaymentDto> getPaymentWithNoDuplicate() throws SQLException, ValidationException {
+        List<PaymentDto> temp = new ArrayList<>();
+        List<GiftDto> allGiftDtoList = getAll();
+        List<PaymentDto> paymentDtoList = paymentBiz.getAll();
+
+        for (GiftDto giftDto : allGiftDtoList) {
+            for (PaymentDto paymentDto : paymentDtoList) {
+                if ((giftDto.getPaymentId()) == (paymentDto.getId())){
+                    temp.add(paymentDto);
+                }
+            }
+        }
+        paymentDtoList.removeIf(temp::contains);
+
+        return paymentDtoList;
     }
 }

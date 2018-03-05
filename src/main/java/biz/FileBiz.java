@@ -1,6 +1,9 @@
 package biz;
 
+import biz.dto.DrugDeliveryDto;
 import biz.dto.FileDto;
+import biz.dto.PatientDto;
+import biz.dto.TransactionDto;
 import converter.MainConverter;
 import dal.dao.FileDao;
 import dal.dao.PatientDao;
@@ -12,6 +15,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +35,12 @@ public class FileBiz {
 
     @Inject
     private FileValidator fileValidator;
+
+    @Inject
+    private TransactionBiz transactionBiz;
+
+    @Inject
+    private PatientBiz patientBiz;
 
     @EJB
     private MainConverter converter;
@@ -90,5 +100,39 @@ public class FileBiz {
 
     public void removeAll() throws SQLException {
         fileDao.removeAll();
+    }
+
+    public List<PatientDto> getPatientWithNoDuplicate() throws SQLException, ValidationException {
+        List<PatientDto> temp = new ArrayList<>();
+        List<FileDto> allFileDtoList = getAll();
+        List<PatientDto> patientDtoList = patientBiz.getAll();
+
+        for (FileDto fileDto : allFileDtoList) {
+            for (PatientDto patientDto : patientDtoList) {
+                if ((fileDto.getPatientId()) == (patientDto.getId())){
+                    temp.add(patientDto);
+                }
+            }
+        }
+        patientDtoList.removeIf(temp::contains);
+
+        return patientDtoList;
+    }
+
+    public List<TransactionDto> getTransactionWithNoDuplicate() throws SQLException, ValidationException {
+        List<TransactionDto> temp = new ArrayList<>();
+        List<FileDto> allFileDtoList = getAll();
+        List<TransactionDto> transactionDtoList = transactionBiz.getAll();
+
+        for (FileDto fileDto : allFileDtoList) {
+            for (TransactionDto transactionDto : transactionDtoList) {
+                if ((fileDto.getPatientId()) == (transactionDto.getId())){
+                    temp.add(transactionDto);
+                }
+            }
+        }
+        transactionDtoList.removeIf(temp::contains);
+
+        return transactionDtoList;
     }
 }

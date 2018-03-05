@@ -2,6 +2,7 @@ package controller;
 
 import biz.PaymentBiz;
 import biz.ValidationException;
+import biz.dto.EmployeeDto;
 import biz.dto.PaymentDto;
 
 import javax.inject.Inject;
@@ -103,6 +104,23 @@ public class PaymentController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_employee")
+    @Produces("application/json")
+    public Response getWithNoDuplicate(){
+        try {
+            List<EmployeeDto> employeeDtoList = paymentBiz.getEmployeeWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(employeeDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

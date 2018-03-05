@@ -3,6 +3,7 @@ package controller;
 import biz.PrescriptionBiz;
 import biz.ValidationException;
 import biz.dto.PrescriptionDto;
+import biz.dto.VisitDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -101,6 +102,23 @@ public class PrescriptionController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_visit")
+    @Produces("application/json")
+    public Response getWithNoDuplicate(){
+        try {
+            List<VisitDto> visitDtoList = prescriptionBiz.getVisitWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(visitDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

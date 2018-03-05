@@ -118,7 +118,7 @@ public class ContractController {
     }
 
     @GET
-    @Path("/get")
+    @Path("/get_employee")
     @Produces("application/json")
     public Response getWithNoDuplicate(){
         try {

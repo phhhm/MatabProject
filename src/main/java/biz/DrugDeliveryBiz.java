@@ -1,6 +1,8 @@
 package biz;
 
+import biz.dto.ContractDto;
 import biz.dto.DrugDeliveryDto;
+import biz.dto.TransactionDto;
 import converter.MainConverter;
 import dal.dao.DrugDeliveryDao;
 import dal.dao.EmployeeDao;
@@ -12,6 +14,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -28,6 +31,9 @@ public class DrugDeliveryBiz {
 
     @Inject
     private DrugDeliveryValidator drugDeliveryValidator;
+
+    @Inject
+    private TransactionBiz transactionBiz;
 
     @EJB
     private MainConverter converter;
@@ -87,5 +93,22 @@ public class DrugDeliveryBiz {
 
     public void removeAll() throws SQLException {
         drugDeliveryDao.removeAll();
+    }
+
+    public List<TransactionDto> getTransactionWithNoDuplicate() throws SQLException, ValidationException {
+        List<TransactionDto> temp = new ArrayList<>();
+        List<DrugDeliveryDto> allDrugDeliveryDtoList = getAll();
+        List<TransactionDto> transactionDtoList = transactionBiz.getAll();
+
+        for (DrugDeliveryDto drugDeliveryDto : allDrugDeliveryDtoList) {
+            for (TransactionDto transactionDto : transactionDtoList) {
+                if ((drugDeliveryDto.getTransactionId()) == (transactionDto.getId())){
+                    temp.add(transactionDto);
+                }
+            }
+        }
+        transactionDtoList.removeIf(temp::contains);
+
+        return transactionDtoList;
     }
 }

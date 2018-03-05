@@ -3,6 +3,7 @@ package controller;
 import biz.GiftBiz;
 import biz.ValidationException;
 import biz.dto.GiftDto;
+import biz.dto.PaymentDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -103,6 +104,23 @@ public class GiftController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_payment")
+    @Produces("application/json")
+    public Response getPaymentWithNoDuplicate(){
+        try {
+            List<PaymentDto> paymentDtoList = giftBiz.getPaymentWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(paymentDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

@@ -3,6 +3,8 @@ package controller;
 import biz.FileBiz;
 import biz.ValidationException;
 import biz.dto.FileDto;
+import biz.dto.PatientDto;
+import biz.dto.TransactionDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -103,6 +105,40 @@ public class FileController {
             return Response.status(Response.Status.OK).build();
 
         } catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_transaction")
+    @Produces("application/json")
+    public Response getTransactionWithNoDuplicate(){
+        try {
+            List<TransactionDto> transactionDtoList = fileBiz.getTransactionWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(transactionDtoList).build();
+        }
+        catch (ValidationException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GET
+    @Path("/get_patient")
+    @Produces("application/json")
+    public Response getPatientWithNoDuplicate(){
+        try {
+            List<PatientDto> patientDtoList = fileBiz.getPatientWithNoDuplicate();
+            return Response.status(Response.Status.OK).entity(patientDtoList).build();
+        }
+        catch (ValidationException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }catch (Exception e){

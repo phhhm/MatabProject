@@ -1,6 +1,7 @@
 package biz;
 
 import biz.dto.PrescriptionDto;
+import biz.dto.VisitDto;
 import converter.MainConverter;
 import dal.dao.PrescriptionDao;
 import dal.dao.VisitDao;
@@ -11,6 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -26,8 +28,12 @@ public class PrescriptionBiz {
     @Inject
     private PrescriptionValidator prescriptionValidator;
 
+    @Inject
+    private VisitBiz visitBiz;
+
     @EJB
     private MainConverter converter;
+    private List<VisitDto> visitWithNoDuplicate;
 
     public List<PrescriptionDto> getAll() throws SQLException, ValidationException {
         List<PrescriptionDto> prescriptionDtoList = converter.getList(prescriptionDao.getAll(), PrescriptionDto.class);
@@ -80,5 +86,22 @@ public class PrescriptionBiz {
 
     public void removeAll() throws SQLException {
         prescriptionDao.removeAll();
+    }
+
+    public List<VisitDto> getVisitWithNoDuplicate() throws SQLException, ValidationException {
+        List<VisitDto> temp = new ArrayList<>();
+        List<PrescriptionDto> allPrescriptionDtoList = getAll();
+        List<VisitDto> visitDtoList = visitBiz.getAll();
+
+        for (PrescriptionDto prescriptionDto : allPrescriptionDtoList) {
+            for (VisitDto visitDto : visitDtoList) {
+                if ((prescriptionDto.getVisitId()) == (visitDto.getId())){
+                    temp.add(visitDto);
+                }
+            }
+        }
+        visitDtoList.removeIf(temp::contains);
+
+        return visitDtoList;
     }
 }
