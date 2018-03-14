@@ -8,4 +8,5 @@ import dal.entities.ContractEntity;
 
 public interface ContractDao extends DaoInterface<ContractEntity> {
 
+    ContractEntity getByEmployeeId(Long employeeId);
 }

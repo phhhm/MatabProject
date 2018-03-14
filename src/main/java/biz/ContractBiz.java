@@ -1,5 +1,6 @@
 package biz;
 
+import accessories.ValidationMessages;
 import biz.dto.ContractDto;
 import biz.dto.EmployeeDto;
 import converter.MainConverter;
@@ -45,23 +46,24 @@ public class ContractBiz {
             throw new ValidationException(String.join(",", validationResult));
     }
 
-    public ContractDto getById(Long id) throws SQLException, ValidationException {
+    public ContractDto get(Long id) throws SQLException, ValidationException {
         ContractDto contractDto = (ContractDto) converter.getObject(contractDao.getById(id), ContractDto.class);
-        List<String> validationResult = contractValidator.dtoValidation(contractDto);
-        if (validationResult.size()==0)
             return contractDto;
-        else
-            throw new ValidationException(String.join(",", validationResult));
     }
 
     public void add(ContractDto contractDto) throws  SQLException, ValidationException {
         List<String> validationResult = contractValidator.dtoValidation(contractDto);
         if (validationResult.size() == 0) {
-            Long employeeId = contractDto.getEmployeeId();
-            contractDto.setId(null);
-            ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
-            contractEntity.setEmployeeEntity(employeeDao.getById(employeeId));
-            contractDao.Add(contractEntity);
+            ContractEntity previousEntity = contractDao.getByEmployeeId(contractDto.getEmployeeId());
+            if (previousEntity == null){
+                contractDto.setId(null);
+                ContractEntity contractEntity = (ContractEntity) converter.getObject(contractDto, ContractEntity.class);
+                contractEntity.setEmployeeEntity(employeeDao.getById(contractDto.getEmployeeId()));
+                contractDao.Add(contractEntity);
+            }else {
+                throw new ValidationException(ValidationMessages.duplicateAddition);
+            }
+
         }else {
             throw new ValidationException(String.join(",", validationResult));
         }

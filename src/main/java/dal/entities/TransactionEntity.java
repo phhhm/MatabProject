@@ -35,9 +35,9 @@ public class TransactionEntity {
 
     @Column(name = "transaction_source_id")
     @NotNull
-    private Long transactionSourceId;
+    private String transactionSourceId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "payment_id", nullable = false)
     private PaymentEntity paymentEntity;
 
@@ -103,11 +103,11 @@ public class TransactionEntity {
         this.fileEntity = fileEntity;
     }
 
-    public Long getTransactionSourceId() {
+    public String getTransactionSourceId() {
         return transactionSourceId;
     }
 
-    public void setTransactionSourceId(Long transactionSourceId) {
+    public void setTransactionSourceId(String transactionSourceId) {
         this.transactionSourceId = transactionSourceId;
     }
 }

@@ -49,7 +49,7 @@ public class AuthenticationFilter implements Filter {
 //            }
 //            String userId = httpServletRequest.getHeader("user-id");
 //            try {
-//                UserEntity userEntity = userDao.getById(Long.parseLong(userId));
+//                UserEntity userEntity = userDao.get(Long.parseLong(userId));
 //                if (userEntity != null){
 //                    filterChain.doFilter(httpServletRequest, httpServletResponse);
 //                }else{

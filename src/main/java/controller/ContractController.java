@@ -5,7 +5,6 @@ import biz.EmployeeBiz;
 import biz.ValidationException;
 import biz.dto.ContractDto;
 import biz.dto.EmployeeDto;
-import com.sun.org.apache.regexp.internal.RE;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -45,7 +44,7 @@ public class ContractController {
     @Produces("application/json")
     public Response getById(@PathParam("id") Long id){
         try {
-            ContractDto contractDto = contractBiz.getById(id);
+            ContractDto contractDto = contractBiz.get(id);
             return Response.status(Response.Status.OK).entity(contractDto).build();
 
         } catch (ValidationException e) {

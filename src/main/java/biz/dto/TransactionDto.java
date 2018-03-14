@@ -11,8 +11,8 @@ public class TransactionDto {
     private String date;
     private String mablagh;
     private String type;
-    private Long paymentId;
     private String transactionSourceId;
+    private Long paymentId;
 
     public String getTransactionSourceId() {
         return transactionSourceId;

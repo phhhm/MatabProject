@@ -59,4 +59,5 @@ public class ValidationMessages {
     public static String fieldIdEmpty = " فیلد پرونده نمیتواند خالی باشد";
     public static String passwordEmpty = "فیلد پسورد نمیتواند خالی باشد";
     public static String usernameEmpty = "فیلد یوزر نمیتواند خالی باشد";
+    public static String duplicateAddition = "این مورد قبلا ثبت شده";
 }
